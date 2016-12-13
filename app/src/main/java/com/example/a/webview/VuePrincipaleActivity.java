@@ -120,6 +120,15 @@ public class VuePrincipaleActivity extends AppCompatActivity {
                 VuePrincipaleActivity.this.startActivity(activityChangeIntent);
             }
         });
+        Button bDeconnexion = (Button)findViewById(R.id.bDeconnexion);
+        bDeconnexion.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
+                Intent activityChangeIntent = new Intent(VuePrincipaleActivity.this, MainActivity.class);
+                VuePrincipaleActivity.this.startActivity(activityChangeIntent);
+            }
+        });
     }
 }
 

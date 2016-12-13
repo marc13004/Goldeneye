@@ -1,7 +1,10 @@
 package com.example.a.webview;
 
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 
@@ -21,19 +24,34 @@ public class DataActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data);
-        titreData = (TextView) findViewById(R.id.titre);
-        titreData.setText("Données");
+
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
+        ActionBar ab = getSupportActionBar();
+        ab.setDisplayHomeAsUpEnabled(true);
+
         labelTemp = (TextView) findViewById(R.id.labelTemp);
         labelTemp.setText("Température");
         labelHumidite = (TextView) findViewById(R.id.labelHumidite);
         labelHumidite.setText("Humidité");
         labelBarometre = (TextView) findViewById(R.id.labelBarometre);
         labelBarometre.setText("Pression");
-        labelAltitude = (TextView) findViewById(R.id.labelAltitude);
-        labelAltitude.setText("Altitude");
+        labelAltitude = (TextView) findViewById(R.id.labelTemp2);
+        labelAltitude.setText("Température");
         raspiTemp = (TextView) findViewById(R.id.temp);
         raspiHumi = (TextView) findViewById(R.id.humi);
         raspiBaro = (TextView) findViewById(R.id.baro);
-        raspiAlti = (TextView) findViewById(R.id.alti);
+        raspiAlti = (TextView) findViewById(R.id.temp2);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                this.finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

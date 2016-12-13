@@ -32,9 +32,36 @@
             </intent-filter>
         </activity>
         <activity android:name=".VuePrincipaleActivity" />
-        <activity android:name=".CameraActivity"/>
-        <activity android:name=".DataActivity" />
-        <activity android:name=".AlarmeActivity" />
+
+        <activity android:name=".CameraActivity"
+            android:label="@string/camera"
+            android:parentActivityName="com.example.a.webview.VuePrincipaleActivity" >
+
+        <!-- Parent activity meta-data to support 4.0 and lower -->
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value="com.example.a.webview.VuePrincipaleActivity" />
+        </activity>
+
+        <activity android:name=".DataActivity"
+            android:label="@string/data"
+            android:parentActivityName="com.example.a.webview.VuePrincipaleActivity" >
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.a.webview.VuePrincipaleActivity" />
+        </activity>
+
+        <activity android:name=".AlarmeActivity"
+            android:label="@string/alarme"
+            android:parentActivityName="com.example.a.webview.VuePrincipaleActivity" >
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.a.webview.VuePrincipaleActivity" />
+        </activity>
     </application>
 
 </manifest>

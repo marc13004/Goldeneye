@@ -4,11 +4,15 @@
     android:id="@+id/activity_data"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.a.webview.DataActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar" />
 
     <TextView
         android:text="TextView"
@@ -21,15 +25,6 @@
         android:layout_marginStart="60dp"
         android:layout_marginTop="97dp"
         android:id="@+id/labelTemp" />
-
-    <TextView
-        android:text="TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="38dp"
-        android:id="@+id/titre" />
 
     <TextView
         android:text="TextView"
@@ -58,7 +53,7 @@
         android:layout_alignLeft="@+id/labelBarometre"
         android:layout_alignStart="@+id/labelBarometre"
         android:layout_marginTop="43dp"
-        android:id="@+id/labelAltitude" />
+        android:id="@+id/labelTemp2" />
 
     <TextView
         android:text="TextView"
@@ -93,10 +88,10 @@
         android:text="TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/labelAltitude"
+        android:layout_alignBottom="@+id/labelTemp2"
         android:layout_alignLeft="@+id/baro"
         android:layout_alignStart="@+id/baro"
-        android:id="@+id/alti" />
+        android:id="@+id/temp2" />
 
     <Button
         android:text="Historique"
