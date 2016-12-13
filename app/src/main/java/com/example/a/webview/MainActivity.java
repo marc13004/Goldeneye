@@ -3,8 +3,12 @@ package com.example.a.webview;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,12 +23,13 @@ public class MainActivity extends AppCompatActivity
 {
     EditText identifiant;
     EditText password;
-    static int pid = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
         identifiant = (EditText) findViewById(R.id.identifiant);
         password = (EditText) findViewById(R.id.password);
         Button bConnect = (Button)findViewById(R.id.bLogin);
@@ -37,7 +42,6 @@ public class MainActivity extends AppCompatActivity
                 try {
                     String sidentifiant = identifiant.getText().toString();
                     String spassword = password.getText().toString();
-
 
                     post_form.put("identifiant" , sidentifiant);
                     post_form.put("pwd", spassword);
@@ -64,14 +68,14 @@ public class MainActivity extends AppCompatActivity
                     try {
                         task = new JSONObject(resultTask.toString());
                         String status = task.getString("status");
-                        pid = Integer.parseInt(status);
+                        int pid = Integer.parseInt(status);
                         Log.i("***id int***",pid+"");
                         if(pid == 1){
-                            Log.i("***Log status ok***", pid+"");
+                            Log.i("***Log status not ok***", pid+"");
                             Toast.makeText(MainActivity.this,"Connexion failed",Toast.LENGTH_LONG).show();
                         }
                         if(pid == 0){
-                            Log.i("***Log status not ok***", pid+"");
+                            Log.i("***Log status ok***", pid+"");
                             Toast.makeText(MainActivity.this,"Connexion sucess",Toast.LENGTH_LONG).show();
                             Intent activityChangeIntent = new Intent(MainActivity.this, VuePrincipaleActivity.class);
                             MainActivity.this.startActivity(activityChangeIntent);
@@ -83,5 +87,20 @@ public class MainActivity extends AppCompatActivity
                 }
             }
         });
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_edit:
+            /* DO EDIT */
+                return true;
+
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
