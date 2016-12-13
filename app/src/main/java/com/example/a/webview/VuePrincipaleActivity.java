@@ -30,16 +30,15 @@ public class VuePrincipaleActivity extends AppCompatActivity {
         httpStatus = (TextView) findViewById(R.id.httpStatus);
         labelHttpStatus.setText("HTTP Status: ");
         httpStatus.setText("connectez-vous");
+
         mySwitch = (Switch) findViewById(R.id.alarmeSwitch);
-        //set the switch to ON
+        //set the switch to OFF
         mySwitch.setChecked(false);
         //attach a listener to check for changes in state
         mySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
             @Override
-            public void onCheckedChanged(CompoundButton buttonView,
-                                         boolean isChecked) {
-
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
                 if(isChecked){
                     String URL = "http://10.111.61.96:8082/pir";
@@ -92,6 +91,7 @@ public class VuePrincipaleActivity extends AppCompatActivity {
         else {
             switchStatus.setText("OFF");
         }
+
 
         Button bCamera = (Button)findViewById(R.id.bCamera);
         bCamera.setOnClickListener(new View.OnClickListener()
