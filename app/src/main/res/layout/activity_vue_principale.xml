@@ -14,7 +14,7 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/logoApp"
+        android:src="@drawable/logoapp"
         android:id="@+id/imageView"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
@@ -24,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:text="Détection"
+        android:text="Détection "
         android:splitTrack="false"
         android:switchMinWidth="50dp"
         android:textStyle="bold|italic"
@@ -52,21 +52,11 @@
     <TextView
         android:text="TextView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="30dp"
         android:id="@+id/labelHttpStatus"
         android:layout_above="@+id/bCamera"
-        android:layout_toLeftOf="@+id/imageView"
-        android:layout_toStartOf="@+id/imageView" />
-
-    <TextView
-        android:text="TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/httpStatus"
-        android:layout_below="@+id/switchStatus"
-        android:layout_toRightOf="@+id/imageView"
-        android:layout_toEndOf="@+id/imageView"
-        android:layout_marginTop="30dp" />
+        android:layout_alignEnd="@+id/alarmeSwitch"
+        android:layout_alignParentStart="true" />
 
     <Button
         android:text="Camera"
@@ -131,5 +121,15 @@
         android:textStyle="bold"
         android:textColor="@android:color/background_light"
         android:textSize="20sp" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_height="30dp"
+        android:id="@+id/httpStatus"
+        android:layout_marginTop="29dp"
+        android:layout_below="@+id/switchStatus"
+        android:layout_alignParentEnd="true"
+        android:layout_alignStart="@+id/switchStatus"
+        android:layout_width="wrap_content" />
 
 </RelativeLayout>
