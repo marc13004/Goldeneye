@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
@@ -14,35 +15,62 @@
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar" />
 
-    <EditText
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:srcCompat="@drawable/mainfond"
+        android:id="@+id/imageView6"
+        android:layout_below="@+id/my_toolbar" />
+
+    <ImageView
+        android:layout_width="220dp"
+        android:layout_height="150dp"
+        app:srcCompat="@drawable/logoapp"
+        android:layout_below="@+id/my_toolbar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:id="@+id/imageView2" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
         android:inputType="textPersonName"
         android:hint="identifiant"
         android:ems="10"
         android:id="@+id/identifiant"
-        android:layout_marginTop="100dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="50dp" />
+        android:layout_marginTop="75dp"
+        android:layout_below="@+id/imageView2"
+        android:layout_alignStart="@+id/imageView2"
+        android:layout_alignEnd="@+id/imageView2"
+        android:background="@android:color/background_light" />
 
     <EditText
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="20dp"
         android:inputType="textPassword"
-        android:hint="Password"
+        android:hint="mot de passe"
         android:ems="10"
         android:id="@+id/password"
-        android:layout_marginTop="93dp"
+        android:layout_marginTop="30dp"
         android:layout_below="@+id/identifiant"
-        android:layout_alignStart="@+id/identifiant" />
+        android:layout_alignStart="@+id/identifiant"
+        android:layout_alignEnd="@+id/identifiant"
+        android:textSize="16sp"
+        android:background="@android:color/background_light" />
 
     <Button
         android:text="Valider"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="65dp"
+        android:layout_marginTop="80dp"
         android:id="@+id/bLogin"
         android:layout_below="@+id/password"
-        android:layout_alignStart="@+id/password" />
+        android:layout_alignStart="@+id/password"
+        android:layout_alignEnd="@+id/password"
+        android:password="false"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:textColorLink="@android:color/holo_green_light"
+        android:textStyle="bold"
+        android:textColor="@color/colorPrimaryDark" />
+
 </RelativeLayout>

@@ -29,6 +29,8 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
 
         identifiant = (EditText) findViewById(R.id.identifiant);
         password = (EditText) findViewById(R.id.password);
@@ -97,7 +99,8 @@ public class MainActivity extends AppCompatActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_edit:
-            /* DO EDIT */
+                Intent activityChangeIntent = new Intent(MainActivity.this, ReglagesActivity.class);
+                MainActivity.this.startActivity(activityChangeIntent);
                 return true;
 
         }

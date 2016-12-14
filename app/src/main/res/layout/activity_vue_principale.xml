@@ -35,34 +35,11 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
-    <TextView
-        android:id="@+id/switchStatus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Medium Text"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@android:color/holo_red_dark"
-        android:gravity="center_horizontal"
-        android:layout_alignBottom="@+id/alarmeSwitch"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="17dp"
-        android:layout_marginEnd="17dp" />
-
-    <TextView
-        android:text="TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:id="@+id/labelHttpStatus"
-        android:layout_above="@+id/bCamera"
-        android:layout_alignEnd="@+id/alarmeSwitch"
-        android:layout_alignParentStart="true" />
-
     <Button
         android:text="Camera"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="55dp"
+        android:layout_marginTop="20dp"
         android:id="@+id/bCamera"
         android:background="@color/colorPrimary"
         android:textColor="@android:color/background_light"
@@ -107,29 +84,51 @@
         android:textAllCaps="false"
         android:textSize="25sp" />
 
+    <TextView
+        android:text="TextView"
+        android:layout_height="20dp"
+        android:id="@+id/httpStatus"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/switchStatus"
+        android:layout_alignParentEnd="true"
+        android:layout_alignStart="@+id/switchStatus"
+        android:layout_width="wrap_content" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:id="@+id/labelHttpStatus"
+        android:layout_alignBaseline="@+id/httpStatus"
+        android:layout_alignBottom="@+id/httpStatus"
+        android:layout_alignParentStart="true"
+        android:layout_alignEnd="@+id/alarmeSwitch" />
+
+    <TextView
+        android:id="@+id/switchStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Medium Text"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@android:color/holo_red_dark"
+        android:gravity="center_horizontal"
+        android:layout_marginRight="17dp"
+        android:layout_alignBaseline="@+id/alarmeSwitch"
+        android:layout_alignBottom="@+id/alarmeSwitch"
+        android:layout_alignEnd="@+id/imageView" />
+
     <Button
         android:text="Deconnexion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/bDeconnexion"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:background="@android:color/holo_green_dark"
         android:textStyle="bold"
         android:textColor="@android:color/background_light"
-        android:textSize="20sp" />
-
-    <TextView
-        android:text="TextView"
-        android:layout_height="30dp"
-        android:id="@+id/httpStatus"
-        android:layout_marginTop="29dp"
-        android:layout_below="@+id/switchStatus"
-        android:layout_alignParentEnd="true"
-        android:layout_alignStart="@+id/switchStatus"
-        android:layout_width="wrap_content" />
+        android:textSize="20sp"
+        android:layout_below="@+id/bData"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="30dp"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>
