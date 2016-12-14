@@ -11,16 +11,16 @@
         android:id="@+id/my_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
+        android:background="?attr/colorAccent"
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar" />
 
     <ImageView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/mainfond"
-        android:id="@+id/imageView6"
-        android:layout_below="@+id/my_toolbar" />
+        android:layout_height="630dp"
+        app:srcCompat="@drawable/backgroundmain"
+        android:id="@+id/imageView7"
+        android:layout_alignParentBottom="true" />
 
     <ImageView
         android:layout_width="220dp"
@@ -28,12 +28,12 @@
         app:srcCompat="@drawable/logoapp"
         android:layout_below="@+id/my_toolbar"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="30dp"
         android:id="@+id/imageView2" />
 
     <EditText
         android:layout_width="wrap_content"
-        android:layout_height="20dp"
+        android:layout_height="30dp"
         android:inputType="textPersonName"
         android:hint="identifiant"
         android:ems="10"
@@ -42,11 +42,12 @@
         android:layout_below="@+id/imageView2"
         android:layout_alignStart="@+id/imageView2"
         android:layout_alignEnd="@+id/imageView2"
-        android:background="@android:color/background_light" />
+        android:background="@android:color/background_light"
+        android:textAlignment="center" />
 
     <EditText
         android:layout_width="wrap_content"
-        android:layout_height="20dp"
+        android:layout_height="30dp"
         android:inputType="textPassword"
         android:hint="mot de passe"
         android:ems="10"
@@ -56,7 +57,8 @@
         android:layout_alignStart="@+id/identifiant"
         android:layout_alignEnd="@+id/identifiant"
         android:textSize="16sp"
-        android:background="@android:color/background_light" />
+        android:background="@android:color/background_light"
+        android:textAlignment="center" />
 
     <Button
         android:text="Valider"
@@ -71,6 +73,6 @@
         style="@style/Widget.AppCompat.Button.Colored"
         android:textColorLink="@android:color/holo_green_light"
         android:textStyle="bold"
-        android:textColor="@color/colorPrimaryDark" />
+        android:textColor="@android:color/holo_green_dark" />
 
 </RelativeLayout>

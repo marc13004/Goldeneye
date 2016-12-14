@@ -2,6 +2,7 @@ package com.example.a.webview;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -22,7 +23,7 @@ public class CameraActivity extends AppCompatActivity {
         ab.setDisplayHomeAsUpEnabled(true);
 
         String URL = "http://10.111.61.96:8081/streaming";
-        WebServiceGET WebServiceGET = new WebServiceGET();
+        final WebServiceGET WebServiceGET = new WebServiceGET();
         WebServiceGET.execute(URL);
 
         if (WebServiceGET.httpStatus == 200) {

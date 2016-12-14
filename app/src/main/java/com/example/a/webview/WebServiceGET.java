@@ -34,7 +34,7 @@ public class WebServiceGET extends AsyncTask<String,String,String>{
             Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("172.19.254.1", 8080));
 
             // Ouverture de la connexion
-            urlConnection = (HttpURLConnection) url.openConnection(proxy);
+            urlConnection = (HttpURLConnection) url.openConnection();
 
             // Connexion à l'URL
             urlConnection.connect();
