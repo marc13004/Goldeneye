@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity
                 }
                 if (post_form.length() > 0) {
 
-                    String Server_Rest_Address="http://10.111.61.96:3000/users/login";
+                    String Server_Rest_Address="http://"+ReglagesActivity.urlchecked+":3000/users/login";
                     AsyncTask loginReturn = myDAOPostServerRest.execute(String.valueOf(post_form),Server_Rest_Address);
                     Object resultTask = null;
                     try {

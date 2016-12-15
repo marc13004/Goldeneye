@@ -64,6 +64,16 @@
                 android:value="com.example.a.webview.VuePrincipaleActivity" />
         </activity>
 
+        <activity android:name=".HistoriqueActivity"
+            android:label="@string/historique"
+            android:parentActivityName="com.example.a.webview.DataActivity" >
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.a.webview.DataActivity" />
+        </activity>
+
         <activity android:name=".AlarmeActivity"
             android:label="@string/alarme"
             android:parentActivityName="com.example.a.webview.VuePrincipaleActivity" >

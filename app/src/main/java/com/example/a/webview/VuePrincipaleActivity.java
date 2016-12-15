@@ -41,7 +41,7 @@ public class VuePrincipaleActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
                 if(isChecked){
-                    String URL = "http://10.111.61.96:8082/pir";
+                    String URL = "http://"+ReglagesActivity.urlchecked+":8082/pir";
                     WebServiceGET WebServiceGET = new WebServiceGET();
                     WebServiceGET.execute(URL);
                     //if the connexion is running
@@ -62,7 +62,7 @@ public class VuePrincipaleActivity extends AppCompatActivity {
                 }else{
                     WebServiceGET WebServiceGet2 = new WebServiceGET();
 
-                    String URL = "http://10.111.61.96:8082/pir/stop";
+                    String URL = "http://"+ReglagesActivity.urlchecked+":8082/pir/stop";
                     WebServiceGet2.execute(URL);
                     //if connexion ok
                     if (WebServiceGET.httpStatus == 0){

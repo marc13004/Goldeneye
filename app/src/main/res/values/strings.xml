@@ -4,4 +4,5 @@
     <string name="alarme">Alarmes</string>
     <string name="data">Données</string>
     <string name="reglages">Réglages</string>
+    <string name="historique">Historique</string>
 </resources>

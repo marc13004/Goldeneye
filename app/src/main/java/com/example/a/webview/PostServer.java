@@ -37,7 +37,7 @@ public class PostServer extends AsyncTask<String, String, String> {
         try {
             URL url = new URL(params[1]);
             Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("172.19.254.1",8080));
-            urlConnection = (HttpURLConnection) url.openConnection(proxy);
+            urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setDoOutput(true);
             // is output buffer writter
             urlConnection.setRequestMethod("POST");

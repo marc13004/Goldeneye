@@ -18,92 +18,121 @@
         android:text="TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="60dp"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="97dp"
-        android:id="@+id/labelTemp" />
-
-    <TextView
-        android:text="TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_below="@+id/labelTemp"
         android:layout_alignRight="@+id/labelTemp"
         android:layout_alignEnd="@+id/labelTemp"
-        android:layout_marginTop="48dp"
-        android:id="@+id/labelHumidite" />
+        android:layout_marginTop="40dp"
+        android:id="@+id/labelHumidite"
+        android:layout_alignStart="@+id/labelTemp"
+        android:textSize="16sp" />
 
     <TextView
         android:text="TextView"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
         android:layout_alignLeft="@+id/labelHumidite"
         android:layout_alignStart="@+id/labelHumidite"
-        android:id="@+id/labelBarometre" />
+        android:id="@+id/labelBarometre"
+        android:textSize="16sp"
+        android:layout_below="@+id/textView2"
+        android:layout_marginTop="50dp" />
 
     <TextView
         android:text="TextView"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/labelBarometre"
         android:layout_alignLeft="@+id/labelBarometre"
         android:layout_alignStart="@+id/labelBarometre"
         android:layout_marginTop="43dp"
-        android:id="@+id/labelTemp2" />
+        android:id="@+id/labelTemp2"
+        android:textSize="16sp" />
 
     <TextView
         android:text="TextView"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/labelTemp"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginRight="42dp"
-        android:layout_marginEnd="42dp"
-        android:id="@+id/temp" />
+        android:id="@+id/temp"
+        android:layout_marginRight="50dp"
+        android:textSize="18sp" />
 
     <TextView
         android:text="TextView"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/labelHumidite"
         android:layout_alignRight="@+id/temp"
         android:layout_alignEnd="@+id/temp"
-        android:id="@+id/humi" />
+        android:id="@+id/humi"
+        android:textSize="18sp" />
 
     <TextView
         android:text="TextView"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
         android:layout_alignRight="@+id/humi"
         android:layout_alignEnd="@+id/humi"
-        android:id="@+id/baro" />
+        android:id="@+id/baro"
+        android:textSize="18sp"
+        android:layout_below="@+id/textView2"
+        android:layout_marginTop="50dp" />
 
     <TextView
         android:text="TextView"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/labelTemp2"
         android:layout_alignLeft="@+id/baro"
         android:layout_alignStart="@+id/baro"
-        android:id="@+id/temp2" />
+        android:id="@+id/temp2"
+        android:textSize="18sp" />
 
     <Button
         android:text="Historique"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="80dp"
         android:id="@+id/button"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="45dp"
+        android:layout_marginBottom="20dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         style="@style/Widget.AppCompat.Button.Colored"
         android:textColor="@color/colorPrimaryDark" />
+
+    <TextView
+        android:text="DHT11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/my_toolbar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:id="@+id/textView"
+        android:textSize="18sp" />
+
+    <TextView
+        android:text="BMP180"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="55dp"
+        android:id="@+id/textView2"
+        android:textSize="18sp"
+        android:layout_below="@+id/humi"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:id="@+id/labelTemp"
+        android:textSize="16sp"
+        android:layout_marginTop="48dp"
+        android:layout_below="@+id/textView"
+        android:layout_toStartOf="@+id/textView2"
+        android:layout_marginEnd="21dp" />
 </RelativeLayout>

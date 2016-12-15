@@ -22,7 +22,7 @@ public class CameraActivity extends AppCompatActivity {
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
 
-        String URL = "http://10.111.61.96:8081/streaming";
+        String URL = "http://"+ReglagesActivity.urlchecked+":8081/streaming";
         final WebServiceGET WebServiceGET = new WebServiceGET();
         WebServiceGET.execute(URL);
 
@@ -36,7 +36,7 @@ public class CameraActivity extends AppCompatActivity {
                 public void run() {
                     int width = webview.getWidth();
                     int height = webview.getHeight();
-                    webview.loadUrl("http://10.111.61.96:8090/");
+                    webview.loadUrl("http://"+ReglagesActivity.urlchecked+":8090/");
                 }
             });
         }

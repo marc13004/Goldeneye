@@ -1,10 +1,13 @@
 package com.example.a.webview;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 
@@ -20,6 +23,7 @@ public class DataActivity extends AppCompatActivity {
     TextView raspiHumi;
     TextView raspiBaro;
     TextView raspiAlti;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +46,16 @@ public class DataActivity extends AppCompatActivity {
         raspiHumi = (TextView) findViewById(R.id.humi);
         raspiBaro = (TextView) findViewById(R.id.baro);
         raspiAlti = (TextView) findViewById(R.id.temp2);
+
+        Button bHistorique = (Button)findViewById(R.id.button);
+        bHistorique.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
+                Intent activityChangeIntent = new Intent(DataActivity.this, HistoriqueActivity.class);
+                DataActivity.this.startActivity(activityChangeIntent);
+            }
+        });
     }
 
     @Override
