@@ -23,7 +23,7 @@ public class ReglagesActivity extends AppCompatActivity implements ReglagesAdapt
     GestionSQLite urlsBdd;
     String nom;
     ReglagesAdapter adapter;
-    static String urlchecked = "";
+    static String urlchecked = "10.111.61.96";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,8 +77,8 @@ public class ReglagesActivity extends AppCompatActivity implements ReglagesAdapt
                         DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                urlchecked = nom;
                                 Intent intent = new Intent(ReglagesActivity.this, MainActivity.class);
+                                urlchecked = nom;
                                 startActivity(intent);
                             }
                         };
