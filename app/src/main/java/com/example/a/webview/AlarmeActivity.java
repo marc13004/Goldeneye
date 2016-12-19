@@ -1,13 +1,23 @@
 package com.example.a.webview;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ListView;
 import android.widget.Toast;
 
-public class AlarmeActivity extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.List;
+
+public class AlarmeActivity extends AppCompatActivity implements AlarmesAdapter.AlarmesAdapterListener {
+
+    AlarmesAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +28,38 @@ public class AlarmeActivity extends AppCompatActivity {
         setSupportActionBar(myToolbar);
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
+
+        List<String> maListe = new ArrayList<>();
+
+        maListe.add("Elvis");
+        maListe.add("Bob");
+        maListe.add("Alerte");
+
+        adapter = new AlarmesAdapter(this, maListe, new AlarmesAdapter.BtnClickListener() {
+            @Override
+            public void onBtnClick (String son, int position, View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(AlarmeActivity.this);
+                builder.setTitle("Alarmes");
+
+                String nom = son;
+                builder.setMessage("Confirmer la lecture de: " + nom);
+                DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                };
+                builder.setPositiveButton("Oui", listener);
+                builder.setNegativeButton("Non", null);
+                builder.show();
+
+            }
+        });
+
+        adapter.addListener(this);
+
+        ListView list = (ListView)findViewById(R.id.listView);
+        list.setAdapter(adapter);
     }
 
     @Override
