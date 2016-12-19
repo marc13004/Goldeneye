@@ -51,7 +51,7 @@ public class CameraActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                String URL = "http://10.111.61.96:8081/streaming/stop";
+                String URL = "http://"+ReglagesActivity.urlchecked+":8081/streaming/stop";
                 WebServiceGET WebServiceGET = new WebServiceGET();
                 WebServiceGET.execute(URL);
                 if (WebServiceGET.httpStatus == 200) {
