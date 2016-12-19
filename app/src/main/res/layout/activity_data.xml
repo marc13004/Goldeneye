@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_data"
     android:layout_width="match_parent"
@@ -14,6 +15,13 @@
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar" />
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/backgroundsky"
+        android:id="@+id/imageView4"
+        android:layout_alignParentTop="true" />
+
     <TextView
         android:text="TextView"
         android:layout_width="wrap_content"
@@ -21,10 +29,11 @@
         android:layout_below="@+id/labelTemp"
         android:layout_alignRight="@+id/labelTemp"
         android:layout_alignEnd="@+id/labelTemp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="30dp"
         android:id="@+id/labelHumidite"
         android:layout_alignStart="@+id/labelTemp"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:textColor="@color/colorPrimaryDark" />
 
     <TextView
         android:text="TextView"
@@ -35,7 +44,8 @@
         android:id="@+id/labelBarometre"
         android:textSize="16sp"
         android:layout_below="@+id/textView2"
-        android:layout_marginTop="50dp" />
+        android:layout_marginTop="40dp"
+        android:textColor="@color/colorPrimaryDark" />
 
     <TextView
         android:text="TextView"
@@ -44,9 +54,10 @@
         android:layout_below="@+id/labelBarometre"
         android:layout_alignLeft="@+id/labelBarometre"
         android:layout_alignStart="@+id/labelBarometre"
-        android:layout_marginTop="43dp"
+        android:layout_marginTop="30dp"
         android:id="@+id/labelTemp2"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:textColor="@color/colorPrimaryDark" />
 
     <TextView
         android:text="TextView"
@@ -57,7 +68,8 @@
         android:layout_alignParentEnd="true"
         android:id="@+id/temp"
         android:layout_marginRight="50dp"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:textColor="@color/colorPrimary" />
 
     <TextView
         android:text="TextView"
@@ -67,7 +79,8 @@
         android:layout_alignRight="@+id/temp"
         android:layout_alignEnd="@+id/temp"
         android:id="@+id/humi"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:textColor="@color/colorPrimaryDark" />
 
     <TextView
         android:text="TextView"
@@ -78,7 +91,8 @@
         android:id="@+id/baro"
         android:textSize="18sp"
         android:layout_below="@+id/textView2"
-        android:layout_marginTop="50dp" />
+        android:layout_marginTop="50dp"
+        android:textColor="@color/colorPrimaryDark" />
 
     <TextView
         android:text="TextView"
@@ -88,20 +102,7 @@
         android:layout_alignLeft="@+id/baro"
         android:layout_alignStart="@+id/baro"
         android:id="@+id/temp2"
-        android:textSize="18sp" />
-
-    <Button
-        android:text="Historique"
-        android:layout_width="wrap_content"
-        android:layout_height="80dp"
-        android:id="@+id/button"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="20dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        style="@style/Widget.AppCompat.Button.Colored"
+        android:textSize="18sp"
         android:textColor="@color/colorPrimaryDark" />
 
     <TextView
@@ -110,19 +111,21 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/my_toolbar"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="55dp"
         android:id="@+id/textView"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:textColor="@android:color/black" />
 
     <TextView
         android:text="BMP180"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="55dp"
+        android:layout_marginTop="70dp"
         android:id="@+id/textView2"
         android:textSize="18sp"
         android:layout_below="@+id/humi"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:textColor="@android:color/black" />
 
     <TextView
         android:text="TextView"
@@ -131,8 +134,21 @@
         android:layout_marginLeft="50dp"
         android:id="@+id/labelTemp"
         android:textSize="16sp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="40dp"
         android:layout_below="@+id/textView"
         android:layout_toStartOf="@+id/textView2"
-        android:layout_marginEnd="21dp" />
+        android:layout_marginEnd="21dp"
+        android:textColor="@color/colorPrimaryDark" />
+
+    <Button
+        android:text="Historique"
+        android:layout_width="300dp"
+        android:id="@+id/button"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:textColor="@color/colorPrimaryDark"
+        android:layout_below="@+id/labelTemp2"
+        android:layout_alignStart="@+id/labelTemp2"
+        android:layout_marginTop="60dp"
+        android:layout_height="80dp"
+        android:layout_alignEnd="@+id/temp2" />
 </RelativeLayout>

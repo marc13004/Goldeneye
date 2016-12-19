@@ -8,6 +8,9 @@ package com.example.a.webview;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -20,8 +23,11 @@ import java.net.URL;
 
 
 public class WebServiceGET extends AsyncTask<String,String,String>{
+
     protected static int httpStatus;
     protected static HttpURLConnection urlConnection = null;
+    static JSONObject jo = null;
+
     @Override
     protected String doInBackground(String... params)
     {
@@ -61,6 +67,11 @@ public class WebServiceGET extends AsyncTask<String,String,String>{
                 while ((line = reader.readLine()) != null) {
                     buffer.append(line);
                 }
+                try {
+                    jo = new JSONObject(buffer.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 return buffer.toString();
             }
             }catch(MalformedURLException e){
@@ -87,13 +98,4 @@ public class WebServiceGET extends AsyncTask<String,String,String>{
         urlConnection.disconnect();
     }
 
-    /*@Override
-    protected void onPostExecute(String result) {
-        super.onPostExecute(result);
-        try {
-            new GestionJSON().getAllItems(result);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }*/
 }
