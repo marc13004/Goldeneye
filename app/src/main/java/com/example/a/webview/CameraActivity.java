@@ -41,7 +41,7 @@ public class CameraActivity extends AppCompatActivity {
             });
         }
         else {
-            Intent activityChangeIntent = new Intent(CameraActivity.this, VuePrincipaleActivity.class);
+            Intent activityChangeIntent = new Intent(CameraActivity.this, CameraActivity.class);
             CameraActivity.this.startActivity(activityChangeIntent);
         }
 
@@ -55,7 +55,8 @@ public class CameraActivity extends AppCompatActivity {
                 WebServiceGET WebServiceGET = new WebServiceGET();
                 WebServiceGET.execute(URL);
                 if (WebServiceGET.httpStatus == 200) {
-                    this.finish();
+                    Intent activityChangeIntent = new Intent(CameraActivity.this, VuePrincipaleActivity.class);
+                    CameraActivity.this.startActivity(activityChangeIntent);
                 }
                 else{
                     Toast.makeText(CameraActivity.this,"Streaming always running, do it again",Toast.LENGTH_LONG).show();

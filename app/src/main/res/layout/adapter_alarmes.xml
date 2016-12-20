@@ -8,7 +8,7 @@
 
     <TextView
         android:text="TextView"
-        android:layout_width="126dp"
+        android:layout_width="120dp"
         android:layout_height="match_parent"
         android:id="@+id/textView4"
         android:textAlignment="center"
@@ -20,7 +20,7 @@
         android:layout_width="50dp"
         android:layout_height="match_parent"
         android:id="@+id/play"
-        android:background="@android:drawable/checkbox_on_background"
-        android:layout_marginRight="40dp" />
+        android:background="@android:drawable/ic_media_play"
+        android:layout_marginRight="60dp" />
 
 </LinearLayout>

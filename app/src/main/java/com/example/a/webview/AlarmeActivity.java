@@ -31,9 +31,9 @@ public class AlarmeActivity extends AppCompatActivity implements AlarmesAdapter.
 
         List<String> maListe = new ArrayList<>();
 
-        maListe.add("Elvis");
-        maListe.add("Bob");
-        maListe.add("Alerte");
+        maListe.add(0,"Elvis");
+        maListe.add(1,"Bob");
+        maListe.add(2,"Alerte");
 
         adapter = new AlarmesAdapter(this, maListe, new AlarmesAdapter.BtnClickListener() {
             @Override
@@ -46,7 +46,21 @@ public class AlarmeActivity extends AppCompatActivity implements AlarmesAdapter.
                 DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-
+                        if(i==0){
+                            String URL = "http://"+ReglagesActivity.urlchecked+":3000/alarmes/1";
+                            WebServiceGET WebServiceGET = new WebServiceGET();
+                            WebServiceGET.execute(URL);
+                        }
+                        if(i==1){
+                            String URL = "http://"+ReglagesActivity.urlchecked+":3000/alarmes/2";
+                            WebServiceGET WebServiceGET = new WebServiceGET();
+                            WebServiceGET.execute(URL);
+                        }
+                        if(i==2){
+                            String URL = "http://"+ReglagesActivity.urlchecked+":3000/alarmes/3";
+                            WebServiceGET WebServiceGET = new WebServiceGET();
+                            WebServiceGET.execute(URL);
+                        }
                     }
                 };
                 builder.setPositiveButton("Oui", listener);
