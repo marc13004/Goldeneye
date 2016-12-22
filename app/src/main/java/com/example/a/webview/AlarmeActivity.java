@@ -7,13 +7,17 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import org.json.JSONException;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class AlarmeActivity extends AppCompatActivity implements AlarmesAdapter.AlarmesAdapterListener {
 
@@ -37,7 +41,7 @@ public class AlarmeActivity extends AppCompatActivity implements AlarmesAdapter.
 
         adapter = new AlarmesAdapter(this, maListe, new AlarmesAdapter.BtnClickListener() {
             @Override
-            public void onBtnClick (String son, int position, View v) {
+            public void onBtnClick (String son, final int position, View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(AlarmeActivity.this);
                 builder.setTitle("Alarmes");
 
@@ -46,20 +50,16 @@ public class AlarmeActivity extends AppCompatActivity implements AlarmesAdapter.
                 DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        if(i==0){
-                            String URL = "http://"+ReglagesActivity.urlchecked+":3000/alarmes/1";
-                            WebServiceGET WebServiceGET = new WebServiceGET();
-                            WebServiceGET.execute(URL);
-                        }
-                        if(i==1){
-                            String URL = "http://"+ReglagesActivity.urlchecked+":3000/alarmes/2";
-                            WebServiceGET WebServiceGET = new WebServiceGET();
-                            WebServiceGET.execute(URL);
-                        }
-                        if(i==2){
-                            String URL = "http://"+ReglagesActivity.urlchecked+":3000/alarmes/3";
-                            WebServiceGET WebServiceGET = new WebServiceGET();
-                            WebServiceGET.execute(URL);
+
+                        String URL = "http://"+ReglagesActivity.urlchecked+":3000/alarmes/"+(position+1);
+                        WebServiceGET WebServiceGET = new WebServiceGET();
+                        WebServiceGET.execute(URL);
+                        try {
+                            Log.i("alarme", WebServiceGET.get());
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        } catch (ExecutionException e) {
+                            e.printStackTrace();
                         }
                     }
                 };

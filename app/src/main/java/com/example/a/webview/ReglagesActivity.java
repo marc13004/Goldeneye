@@ -23,7 +23,7 @@ public class ReglagesActivity extends AppCompatActivity implements ReglagesAdapt
     GestionSQLite urlsBdd;
     String nom;
     ReglagesAdapter adapter;
-    static String urlchecked = "10.111.61.96";
+    static String urlchecked = "10.111.61.134";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

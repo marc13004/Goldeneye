@@ -72,8 +72,10 @@
         android:id="@+id/httpStatus"
         android:layout_marginTop="20dp"
         android:layout_below="@+id/switchStatus"
-        android:layout_width="100dp"
-        android:layout_alignEnd="@+id/bCamera" />
+        android:layout_width="130dp"
+        android:layout_alignEnd="@+id/bCamera"
+        android:gravity="right"
+        android:textSize="16sp" />
 
     <TextView
         android:text="TextView"
@@ -82,7 +84,9 @@
         android:id="@+id/labelHttpStatus"
         android:layout_alignBaseline="@+id/httpStatus"
         android:layout_alignBottom="@+id/httpStatus"
-        android:layout_alignStart="@+id/bCamera" />
+        android:layout_alignStart="@+id/bCamera"
+        android:textSize="16sp"
+        android:textStyle="bold|italic" />
 
     <Button
         android:text="Deconnexion"
@@ -102,10 +106,10 @@
         android:id="@+id/alarmeSwitch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="19dp"
+        android:layout_marginTop="20dp"
         android:text="Détection "
         android:splitTrack="false"
-        android:switchMinWidth="50dp"
+        android:switchMinWidth="60dp"
         android:textStyle="bold|italic"
         android:textSize="25sp"
         android:textColor="@color/colorPrimary"
@@ -119,10 +123,12 @@
         android:layout_height="wrap_content"
         android:text="Medium Text"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@android:color/holo_red_dark"
+        android:textColor="@color/red"
         android:gravity="center_horizontal"
         android:layout_marginRight="17dp"
         android:layout_below="@+id/alarmeSwitch"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:textStyle="bold"
+        android:textSize="20sp" />
 
 </RelativeLayout>

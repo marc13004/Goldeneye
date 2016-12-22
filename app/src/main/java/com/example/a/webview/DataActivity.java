@@ -5,9 +5,11 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.json.JSONException;
@@ -15,16 +17,15 @@ import org.json.JSONObject;
 
 
 public class DataActivity extends AppCompatActivity {
-    /* titres et labels textview*/
-    TextView labelTemp;
-    TextView labelHumidite;
-    TextView labelBarometre;
-    TextView labelTemp2;
-    /*raspi Data textview*/
-    TextView raspiTemp;
-    TextView raspiHumi;
-    TextView raspiBaro;
-    TextView raspiTemp2;
+
+    TextView tv1;
+    TextView tv2;
+    TextView tv3;
+    TextView tv4;
+    String temp = "";
+    String humi = "";
+    String baro = "";
+    String tempbaro = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,58 +37,70 @@ public class DataActivity extends AppCompatActivity {
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
 
-        labelTemp = (TextView) findViewById(R.id.labelTemp);
-        labelTemp.setText("Température");
-        labelHumidite = (TextView) findViewById(R.id.labelHumidite);
-        labelHumidite.setText("Humidité");
-        labelBarometre = (TextView) findViewById(R.id.labelBarometre);
-        labelBarometre.setText("Pression");
-        labelTemp2 = (TextView) findViewById(R.id.labelTemp2);
-        labelTemp2.setText("Température");
+        tv1 = (TextView) findViewById(R.id.textView);
+        tv2 = (TextView) findViewById(R.id.textView2);
+        tv3 = (TextView) findViewById(R.id.textView6);
+        tv4 = (TextView) findViewById(R.id.textView7);
+        tv1.setText("DHT11");
+        tv2.setText("BMP180");
 
-        String URL = "http://"+ReglagesActivity.urlchecked+":3000/dht";
-        WebServiceGET WebServiceGET = new WebServiceGET();
-        WebServiceGET.execute(URL);
+        ImageView iv1 = (ImageView) findViewById(R.id.imageView5);
+        iv1.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
+                String URL = "http://"+ReglagesActivity.urlchecked+":3000/dht";
+                WebServiceGET dht = new WebServiceGET();
+                dht.execute(URL);
 
-        String temp = "";
-        String humi = "";
-        while (WebServiceGET.jo == null) {
+                while (dht.jo == null) {
 
-        }
-        if (WebServiceGET.httpStatus == 200) {
-            try {
-                temp = WebServiceGET.jo.getString("temperature");
-                humi = WebServiceGET.jo.getString("humidity");
-            } catch (JSONException e) {
-                e.printStackTrace();
+                }
+                if (dht.httpStatus == 200) {
+                    try {
+                        temp = dht.jo.getString("temp");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        humi = dht.jo.getString("humidity");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                tv1.setText("T°: " + temp);
+                tv3.setText("H%: " + humi);
             }
-        }
-        raspiTemp = (TextView) findViewById(R.id.temp);
-        raspiTemp.setText(temp);
-        raspiHumi = (TextView) findViewById(R.id.humi);
-        raspiHumi.setText(humi);
+        });
 
-        String URL2 = "http://"+ReglagesActivity.urlchecked+":3000/bmp";
-        WebServiceGET WebServiceGET2 = new WebServiceGET();
-        WebServiceGET2.execute(URL2);
+        ImageView iv2 = (ImageView) findViewById(R.id.imageView6);
+        iv2.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
+                String URL2 = "http://" + ReglagesActivity.urlchecked + ":3000/bmp";
+                WebServiceGET bmp = new WebServiceGET();
+                bmp.execute(URL2);
 
-        String baro = "";
-        String temp2 = "";
-        while (WebServiceGET2.jo == null) {
+                while (bmp.jo == null) {
 
-        }
-        if (WebServiceGET2.httpStatus == 200) {
-            try {
-                baro = WebServiceGET.jo.getString("pressure");
-                temp2 = WebServiceGET.jo.getString("temperature");
-            } catch (JSONException e) {
-                e.printStackTrace();
+                }
+                if (bmp.httpStatus == 200) {
+                    try {
+                        baro = bmp.jo.getString("pressure");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        tempbaro = bmp.jo.getString("temperature");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                tv2.setText("T°: " + tempbaro);
+                tv4.setText("hPa: " + baro);
             }
-        }
-        raspiBaro = (TextView) findViewById(R.id.baro);
-        raspiBaro.setText(baro);
-        raspiTemp2 = (TextView) findViewById(R.id.temp2);
-        raspiTemp2.setText(temp2);
+        });
 
 
         Button bHistorique = (Button)findViewById(R.id.button);

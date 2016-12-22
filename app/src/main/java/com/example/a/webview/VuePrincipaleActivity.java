@@ -28,8 +28,8 @@ public class VuePrincipaleActivity extends AppCompatActivity {
         switchStatus = (TextView) findViewById(R.id.switchStatus);
         labelHttpStatus = (TextView) findViewById(R.id.labelHttpStatus);
         httpStatus = (TextView) findViewById(R.id.httpStatus);
-        labelHttpStatus.setText("HTTP Status: ");
-        httpStatus.setText("connectez-vous");
+        labelHttpStatus.setText("Status: ");
+        httpStatus.setText("PRET");
 
         mySwitch = (Switch) findViewById(R.id.alarmeSwitch);
         //set the switch to OFF
@@ -47,12 +47,13 @@ public class VuePrincipaleActivity extends AppCompatActivity {
                     //if the connexion is running
                     if (WebServiceGET.httpStatus == 0){
 
-                        httpStatus.setText("/pir"+new WebServiceGET().execute(URL).getStatus()+"");
+                        httpStatus.setText("/pir "+new WebServiceGET().execute(URL).getStatus()+"");
                     }
                     //if connexion ok
                     else if (WebServiceGET.httpStatus == 200){
+                        switchStatus.setTextColor(getResources().getColor(R.color.green));
                         switchStatus.setText("ON");
-                        httpStatus.setText("connexion to /pir ok");
+                        httpStatus.setText("détection activée");
                     }
                     //else we show the httpstatus we got
                     else{
@@ -60,20 +61,19 @@ public class VuePrincipaleActivity extends AppCompatActivity {
                     }
                     // if it is un-checked
                 }else{
-                    WebServiceGET WebServiceGet2 = new WebServiceGET();
-
                     String URL = "http://"+ReglagesActivity.urlchecked+":8082/pir/stop";
+                    WebServiceGET WebServiceGet2 = new WebServiceGET();
                     WebServiceGet2.execute(URL);
                     //if connexion ok
                     if (WebServiceGET.httpStatus == 0){
                         mySwitch.setChecked(false);
-                        httpStatus.setText("/pir/stop"+new WebServiceGET().execute(URL).getStatus()+"");
+                        httpStatus.setText("/pir/stop "+new WebServiceGET().execute(URL).getStatus()+"");
                     }
                     //we show the http status
                     else if (WebServiceGET.httpStatus == 200){
-
+                        switchStatus.setTextColor(getResources().getColor(R.color.red));
                         switchStatus.setText("OFF");
-                        httpStatus.setText("connexion to pir/stop ok");
+                        httpStatus.setText("détection stop");
                     }
                     else{
                         mySwitch.setChecked(false);
@@ -86,9 +86,11 @@ public class VuePrincipaleActivity extends AppCompatActivity {
 
         //check the current state before we display the screen
         if(mySwitch.isChecked()){
+            switchStatus.setTextColor(getResources().getColor(R.color.green));
             switchStatus.setText("ON");
         }
         else {
+            switchStatus.setTextColor(getResources().getColor(R.color.red));
             switchStatus.setText("OFF");
         }
 

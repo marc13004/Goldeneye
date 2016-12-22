@@ -4,7 +4,8 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="1">
+    android:weightSum="1"
+    android:background="@color/colorPrimary">
 
     <TextView
         android:text="TextView"
@@ -14,7 +15,8 @@
         android:textAlignment="center"
         android:gravity="center_vertical"
         android:layout_weight="0.99"
-        android:textSize="22sp" />
+        android:textSize="22sp"
+        android:textColor="@color/colorAccent" />
 
     <Button
         android:layout_width="50dp"

@@ -1,8 +1,5 @@
 package com.example.a.webview;
 
-/**
- * Created by 34011-82-08 on 16/11/2016.
- */
 
 import android.os.AsyncTask;
 import android.util.Log;

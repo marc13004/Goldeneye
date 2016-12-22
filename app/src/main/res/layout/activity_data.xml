@@ -22,145 +22,90 @@
         android:id="@+id/imageView4"
         android:layout_alignParentTop="true" />
 
-    <TextView
-        android:text="TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/labelTemp"
-        android:layout_alignRight="@+id/labelTemp"
-        android:layout_alignEnd="@+id/labelTemp"
-        android:layout_marginTop="30dp"
-        android:id="@+id/labelHumidite"
-        android:layout_alignStart="@+id/labelTemp"
-        android:textSize="16sp"
-        android:textColor="@color/colorPrimaryDark"
-        android:textStyle="bold|italic" />
-
-    <TextView
-        android:text="TextView"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/labelHumidite"
-        android:layout_alignStart="@+id/labelHumidite"
-        android:id="@+id/labelBarometre"
-        android:textSize="16sp"
-        android:layout_below="@+id/textView2"
-        android:layout_marginTop="40dp"
-        android:textColor="@color/colorPrimaryDark"
-        android:textStyle="bold|italic" />
-
-    <TextView
-        android:text="TextView"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/labelBarometre"
-        android:layout_alignLeft="@+id/labelBarometre"
-        android:layout_alignStart="@+id/labelBarometre"
-        android:layout_marginTop="30dp"
-        android:id="@+id/labelTemp2"
-        android:textSize="16sp"
-        android:textColor="@color/colorPrimaryDark"
-        android:textStyle="bold|italic" />
-
-    <TextView
-        android:text="TextView"
-        android:layout_width="80dp"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/labelTemp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:id="@+id/temp"
-        android:layout_marginRight="50dp"
-        android:textSize="18sp"
-        android:textColor="@color/colorPrimary"
-        android:textStyle="bold|italic" />
-
-    <TextView
-        android:text="TextView"
-        android:layout_width="80dp"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/humi"
-        android:layout_alignEnd="@+id/humi"
-        android:id="@+id/baro"
-        android:textSize="18sp"
-        android:layout_below="@+id/textView2"
-        android:layout_marginTop="40dp"
-        android:textColor="@color/colorPrimaryDark"
-        android:textStyle="bold|italic" />
-
-    <TextView
-        android:text="TextView"
-        android:layout_width="80dp"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/labelTemp2"
-        android:layout_alignLeft="@+id/baro"
-        android:layout_alignStart="@+id/baro"
-        android:id="@+id/temp2"
-        android:textSize="18sp"
-        android:textColor="@color/colorPrimaryDark"
-        android:textStyle="bold|italic" />
-
-    <TextView
-        android:text=" DHT11 "
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        app:srcCompat="@drawable/databouton"
+        android:id="@+id/imageView5"
+        android:layout_marginTop="20dp"
         android:layout_below="@+id/my_toolbar"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="55dp"
-        android:id="@+id/textView"
-        android:textSize="18sp"
-        android:textColor="@color/colorPrimary"
-        android:textStyle="bold|italic"
-        android:background="@color/colorAccent" />
+        android:layout_alignStart="@+id/imageView6" />
 
-    <TextView
-        android:text=" BMP180 "
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
-        android:id="@+id/textView2"
-        android:textSize="18sp"
-        android:layout_below="@+id/humi"
-        android:layout_centerHorizontal="true"
-        android:textColor="@color/colorPrimary"
-        android:textStyle="bold|italic"
-        android:background="@color/colorAccent" />
-
-    <TextView
-        android:text="TextView"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="50dp"
-        android:id="@+id/labelTemp"
-        android:textSize="16sp"
-        android:layout_marginTop="40dp"
-        android:layout_below="@+id/textView"
-        android:layout_toStartOf="@+id/textView2"
-        android:layout_marginEnd="21dp"
-        android:textColor="@color/colorPrimaryDark"
-        android:textStyle="bold|italic" />
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        app:srcCompat="@drawable/databouton"
+        android:layout_marginTop="20dp"
+        android:id="@+id/imageView6"
+        android:layout_below="@+id/imageView5"
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:text="Historique"
         android:layout_width="300dp"
         android:id="@+id/button"
-        style="@style/Widget.AppCompat.Button.Colored"
+        style="@android:style/Widget.Button"
         android:textColor="@color/colorPrimaryDark"
-        android:layout_below="@+id/labelTemp2"
-        android:layout_alignStart="@+id/labelTemp2"
-        android:layout_marginTop="60dp"
         android:layout_height="80dp"
-        android:layout_alignEnd="@+id/temp2" />
+        android:layout_below="@+id/imageView6"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:textSize="18sp" />
 
     <TextView
         android:text="TextView"
-        android:layout_width="80dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/humi"
+        android:layout_alignTop="@+id/imageView5"
+        android:layout_alignStart="@+id/imageView5"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="50dp"
+        android:id="@+id/textView"
         android:textSize="18sp"
-        android:textColor="@color/colorPrimaryDark"
-        android:textStyle="bold|italic"
-        android:layout_alignBaseline="@+id/labelHumidite"
-        android:layout_alignBottom="@+id/labelHumidite"
-        android:layout_alignStart="@+id/temp" />
+        android:textColor="@android:color/background_light"
+        android:layout_alignEnd="@+id/imageView5"
+        android:layout_marginEnd="30dp"
+        android:textAlignment="center"
+        android:textStyle="bold" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:id="@+id/textView2"
+        android:layout_alignTop="@+id/imageView6"
+        android:layout_alignStart="@+id/textView"
+        android:textSize="18sp"
+        android:textColor="@android:color/background_light"
+        android:layout_alignEnd="@+id/textView6"
+        android:textAlignment="center"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView"
+        android:layout_alignStart="@+id/textView"
+        android:layout_marginTop="25dp"
+        android:id="@+id/textView6"
+        android:layout_alignEnd="@+id/textView"
+        android:textAlignment="center"
+        android:textColor="@android:color/background_light"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView2"
+        android:layout_alignStart="@+id/textView2"
+        android:layout_marginTop="25dp"
+        android:id="@+id/textView7"
+        android:layout_alignEnd="@+id/textView2"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        android:textColor="@android:color/background_light"
+        android:textStyle="bold" />
+
 </RelativeLayout>

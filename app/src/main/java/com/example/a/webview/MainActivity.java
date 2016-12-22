@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity
                         }
                         if(pid == 0){
                             Log.i("***Log status ok***", pid+"");
-                            Toast.makeText(MainActivity.this,"Connexion sucess",Toast.LENGTH_LONG).show();
+                            Toast.makeText(MainActivity.this,"Connexion success",Toast.LENGTH_LONG).show();
                             Intent activityChangeIntent = new Intent(MainActivity.this, VuePrincipaleActivity.class);
                             MainActivity.this.startActivity(activityChangeIntent);
                         }
