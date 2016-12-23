@@ -21,4 +21,13 @@
         android:layout_centerHorizontal="true"
         android:id="@+id/webview"
         android:layout_below="@+id/my_toolbar" />
+
+    <Button
+        android:text="Enregistrer une video"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button4"
+        android:layout_below="@+id/webview"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp" />
 </RelativeLayout>

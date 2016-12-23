@@ -7,7 +7,9 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.webkit.WebView;
+import android.widget.Button;
 import android.widget.Toast;
 
 public class CameraActivity extends AppCompatActivity {
@@ -44,6 +46,18 @@ public class CameraActivity extends AppCompatActivity {
             Intent activityChangeIntent = new Intent(CameraActivity.this, CameraActivity.class);
             CameraActivity.this.startActivity(activityChangeIntent);
         }
+
+        Button rec = (Button)findViewById(R.id.button4);
+        rec.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
+                String URL = "http://"+ReglagesActivity.urlchecked+":3000/camera/rec";
+                WebServiceGET WebServiceGET = new WebServiceGET();
+                WebServiceGET.execute(URL);
+                Toast.makeText(CameraActivity.this,"L'enregistrement d'une vidéo de 20s a démarré",Toast.LENGTH_LONG).show();
+            }
+        });
 
     }
 

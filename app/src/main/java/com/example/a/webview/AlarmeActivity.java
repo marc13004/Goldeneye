@@ -35,9 +35,9 @@ public class AlarmeActivity extends AppCompatActivity implements AlarmesAdapter.
 
         List<String> maListe = new ArrayList<>();
 
-        maListe.add(0,"Elvis");
-        maListe.add(1,"Bob");
-        maListe.add(2,"Alerte");
+        maListe.add("Elvis");
+        maListe.add("Bob");
+        maListe.add("Alerte");
 
         adapter = new AlarmesAdapter(this, maListe, new AlarmesAdapter.BtnClickListener() {
             @Override
