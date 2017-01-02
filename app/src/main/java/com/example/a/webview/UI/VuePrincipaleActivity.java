@@ -1,4 +1,4 @@
-package com.example.a.webview;
+package com.example.a.webview.UI;
 
 
 import android.content.Intent;
@@ -9,6 +9,9 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
+
+import com.example.a.webview.RESTService.WebServiceGET;
+import com.example.a.webview.R;
 
 /**
  * classe qui permet d'acceder a d'autres vues

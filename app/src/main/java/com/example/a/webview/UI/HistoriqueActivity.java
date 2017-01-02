@@ -1,10 +1,12 @@
-package com.example.a.webview;
+package com.example.a.webview.UI;
 
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+
+import com.example.a.webview.R;
 
 public class HistoriqueActivity extends AppCompatActivity {
     @Override

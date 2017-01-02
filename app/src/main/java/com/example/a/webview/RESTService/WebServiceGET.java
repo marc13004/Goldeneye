@@ -1,4 +1,4 @@
-package com.example.a.webview;
+package com.example.a.webview.RESTService;
 
 /**
  * Created by 34011-82-08 on 28/11/2016.
@@ -24,9 +24,9 @@ import java.net.URL;
 
 public class WebServiceGET extends AsyncTask<String,String,String>{
 
-    protected static int httpStatus;
+    public static int httpStatus;
     protected static HttpURLConnection urlConnection = null;
-    static JSONObject jo = null;
+    public static JSONObject jo = null;
 
     @Override
     protected String doInBackground(String... params)

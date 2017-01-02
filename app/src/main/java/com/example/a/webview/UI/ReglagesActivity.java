@@ -1,4 +1,4 @@
-package com.example.a.webview;
+package com.example.a.webview.UI;
 
 
 import android.content.DialogInterface;
@@ -10,10 +10,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+
+import com.example.a.webview.Dao.GestionSQLite;
+import com.example.a.webview.R;
+import com.example.a.webview.Logic.ReglagesAdapter;
 
 import java.util.List;
 

@@ -1,7 +1,6 @@
-package com.example.a.webview;
+package com.example.a.webview.UI;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
@@ -11,9 +10,10 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import org.json.JSONException;
+import com.example.a.webview.Logic.AlarmesAdapter;
+import com.example.a.webview.RESTService.WebServiceGET;
+import com.example.a.webview.R;
 
 import java.util.ArrayList;
 import java.util.List;

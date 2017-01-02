@@ -1,19 +1,20 @@
-package com.example.a.webview;
+package com.example.a.webview.UI;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.a.webview.RESTService.WebServiceGET;
+import com.example.a.webview.R;
+
 import org.json.JSONException;
-import org.json.JSONObject;
 
 
 public class DataActivity extends AppCompatActivity {

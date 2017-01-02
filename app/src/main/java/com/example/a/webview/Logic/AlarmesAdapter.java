@@ -1,4 +1,4 @@
-package com.example.a.webview;
+package com.example.a.webview.Logic;
 
 
 import android.content.Context;
@@ -9,6 +9,8 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.example.a.webview.R;
 
 import java.util.ArrayList;
 import java.util.List;
