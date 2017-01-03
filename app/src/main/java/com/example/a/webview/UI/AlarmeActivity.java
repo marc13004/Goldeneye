@@ -28,17 +28,19 @@ public class AlarmeActivity extends AppCompatActivity implements AlarmesAdapter.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarme);
 
+        // Barre d'outils
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
 
+        // Liste des alarmes
         List<String> maListe = new ArrayList<>();
-
         maListe.add("Elvis");
         maListe.add("Bob");
         maListe.add("Alerte");
 
+        // Adapter de la liste d'alarmes
         adapter = new AlarmesAdapter(this, maListe, new AlarmesAdapter.BtnClickListener() {
             @Override
             public void onBtnClick (String son, final int position, View v) {

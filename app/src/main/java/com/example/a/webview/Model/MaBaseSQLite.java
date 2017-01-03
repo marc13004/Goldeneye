@@ -1,4 +1,4 @@
-package com.example.a.webview.Dao;
+package com.example.a.webview.Model;
 
 
 import android.content.Context;
@@ -25,6 +25,9 @@ public class MaBaseSQLite extends SQLiteOpenHelper {
         return TABLE_URL;
     }
 
+    /**
+     * Création de la base SQLite
+     */
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_BDD);

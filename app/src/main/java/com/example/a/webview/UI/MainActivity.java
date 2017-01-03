@@ -21,8 +21,8 @@ import org.json.JSONObject;
 
 import java.util.concurrent.ExecutionException;
 
-public class MainActivity extends AppCompatActivity
-{
+public class MainActivity extends AppCompatActivity {
+
     EditText identifiant;
     EditText password;
 
@@ -31,9 +31,11 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Barre d'outils
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
 
+        // Identification
         identifiant = (EditText) findViewById(R.id.identifiant);
         password = (EditText) findViewById(R.id.password);
         Button bConnect = (Button)findViewById(R.id.bLogin);
@@ -55,6 +57,7 @@ public class MainActivity extends AppCompatActivity
                 }
                 if (post_form.length() > 0) {
 
+                    // Vérifie que l'identifiant est dans la bdd et que le mot de passe correspond
                     String Server_Rest_Address="http://"+ReglagesActivity.urlchecked+":3000/users/login";
                     AsyncTask loginReturn = myDAOPostServerRest.execute(String.valueOf(post_form),Server_Rest_Address);
                     Object resultTask = null;
@@ -67,17 +70,18 @@ public class MainActivity extends AppCompatActivity
                         e.printStackTrace();
                     }
 
-                    // ... and parse the String into a JSON Object
                     JSONObject task = null;
                     try {
                         task = new JSONObject(resultTask.toString());
                         String status = task.getString("status");
                         int pid = Integer.parseInt(status);
                         Log.i("***id int***",pid+"");
+                        // Si identification erronée
                         if(pid == 1){
                             Log.i("***Log status not ok***", pid+"");
                             Toast.makeText(MainActivity.this,"Connexion failed",Toast.LENGTH_LONG).show();
                         }
+                        // Si identification ok
                         if(pid == 0){
                             Log.i("***Log status ok***", pid+"");
                             Toast.makeText(MainActivity.this,"Connexion success",Toast.LENGTH_LONG).show();

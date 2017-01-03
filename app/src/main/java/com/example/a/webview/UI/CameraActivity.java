@@ -21,11 +21,13 @@ public class CameraActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
 
+        // Barre d'outils
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
 
+        // Activation serveur de streaming
         String URL = "http://"+ReglagesActivity.urlchecked+":8081/streaming";
         final WebServiceGET WebServiceGET = new WebServiceGET();
         WebServiceGET.execute(URL);
@@ -67,9 +69,12 @@ public class CameraActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
+
+                // Arrêt du serveur de streaming
                 String URL = "http://"+ReglagesActivity.urlchecked+":8081/streaming/stop";
                 WebServiceGET WebServiceGET = new WebServiceGET();
                 WebServiceGET.execute(URL);
+
                 if (WebServiceGET.httpStatus == 200) {
                     Intent activityChangeIntent = new Intent(CameraActivity.this, VuePrincipaleActivity.class);
                     CameraActivity.this.startActivity(activityChangeIntent);

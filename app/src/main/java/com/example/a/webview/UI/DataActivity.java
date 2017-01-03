@@ -16,7 +16,6 @@ import com.example.a.webview.R;
 
 import org.json.JSONException;
 
-
 public class DataActivity extends AppCompatActivity {
 
     TextView tv1;
@@ -33,6 +32,7 @@ public class DataActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data);
 
+        // Barre d'outils
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
         ActionBar ab = getSupportActionBar();
@@ -50,6 +50,7 @@ public class DataActivity extends AppCompatActivity {
         {
             public void onClick(View v)
             {
+                // Récupération des valeurs du dht
                 String URL = "http://"+ReglagesActivity.urlchecked+":3000/dht";
                 WebServiceGET dht = new WebServiceGET();
                 dht.execute(URL);
@@ -69,6 +70,7 @@ public class DataActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
+                // Affichage des valeurs
                 tv1.setText("T°: " + temp);
                 tv3.setText("H%: " + humi);
             }
@@ -79,6 +81,7 @@ public class DataActivity extends AppCompatActivity {
         {
             public void onClick(View v)
             {
+                // Récupération des valeurs du bmp
                 String URL2 = "http://" + ReglagesActivity.urlchecked + ":3000/bmp";
                 WebServiceGET bmp = new WebServiceGET();
                 bmp.execute(URL2);
@@ -98,12 +101,13 @@ public class DataActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
+                // Affichage des valeurs
                 tv2.setText("T°: " + tempbaro);
                 tv4.setText("hPa: " + baro);
             }
         });
 
-
+        // Accès à l'HistoriqueActivity
         Button bHistorique = (Button)findViewById(R.id.button);
         bHistorique.setOnClickListener(new View.OnClickListener()
         {

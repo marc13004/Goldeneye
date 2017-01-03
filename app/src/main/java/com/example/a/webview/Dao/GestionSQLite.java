@@ -1,9 +1,12 @@
 package com.example.a.webview.Dao;
 
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+
+import com.example.a.webview.Model.MaBaseSQLite;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +46,11 @@ public class GestionSQLite {
         return bdd;
     }
 
+
+    /**
+     * Insère une url dans la base de données
+     * @return
+     */
     public long insertUrl(String url){
         //Création d'un ContentValues (fonctionne comme une HashMap)
         ContentValues values = new ContentValues();
@@ -51,6 +59,7 @@ public class GestionSQLite {
         //on insère l'objet dans la BDD via le ContentValues
         return bdd.insert(TABLE_URL, null, values);
     }
+
 
      /**
      * Récupère notre liste d'urls
@@ -81,12 +90,20 @@ public class GestionSQLite {
     }
 
 
+    /**
+     * Supprime une url
+     */
     public void removeUrlWithId(int id){
         bdd.delete(TABLE_URL, COL_ID +" = "+id, null );
     }
 
+
+    /**
+     * Récupère l'id de l'url grace à son nom
+     * @return
+     */
     public int getUrlWithNom(String nom){
-        //Récupère dans un Cursor les valeurs correspondant à une item contenue dans la BDD
+        //Récupère dans un Cursor les valeurs correspondant à une url contenue dans la BDD
         Cursor c = bdd.query(TABLE_URL, new String[] {COL_ID, COL_URL}, COL_URL + " LIKE \"" + nom +"\"", null, null, null, null);
         return cursorToItem(c);
     }

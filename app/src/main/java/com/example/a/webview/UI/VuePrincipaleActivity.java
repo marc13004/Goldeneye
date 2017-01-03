@@ -1,6 +1,5 @@
 package com.example.a.webview.UI;
 
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -14,10 +13,10 @@ import com.example.a.webview.RESTService.WebServiceGET;
 import com.example.a.webview.R;
 
 /**
- * classe qui permet d'acceder a d'autres vues
+ * activité qui permet d'accéder à d'autres activités
  */
-
 public class VuePrincipaleActivity extends AppCompatActivity {
+
     private TextView switchStatus;
     private Switch mySwitch;
     private TextView httpStatus;
@@ -28,6 +27,7 @@ public class VuePrincipaleActivity extends AppCompatActivity {
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vue_principale);
+
         switchStatus = (TextView) findViewById(R.id.switchStatus);
         labelHttpStatus = (TextView) findViewById(R.id.labelHttpStatus);
         httpStatus = (TextView) findViewById(R.id.httpStatus);
@@ -44,6 +44,7 @@ public class VuePrincipaleActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
                 if(isChecked){
+                    // Activation du système de détection
                     String URL = "http://"+ReglagesActivity.urlchecked+":8082/pir";
                     WebServiceGET WebServiceGET = new WebServiceGET();
                     WebServiceGET.execute(URL);
@@ -62,8 +63,10 @@ public class VuePrincipaleActivity extends AppCompatActivity {
                     else{
                         httpStatus.setText(WebServiceGET.httpStatus+"");
                     }
+
                     // if it is un-checked
                 }else{
+                    // Arrêt du système de détection
                     String URL = "http://"+ReglagesActivity.urlchecked+":8082/pir/stop";
                     WebServiceGET WebServiceGet2 = new WebServiceGET();
                     WebServiceGet2.execute(URL);
@@ -97,7 +100,7 @@ public class VuePrincipaleActivity extends AppCompatActivity {
             switchStatus.setText("OFF");
         }
 
-
+        // Accès activité camera
         Button bCamera = (Button)findViewById(R.id.bCamera);
         bCamera.setOnClickListener(new View.OnClickListener()
         {
@@ -107,6 +110,7 @@ public class VuePrincipaleActivity extends AppCompatActivity {
                 VuePrincipaleActivity.this.startActivity(activityChangeIntent);
             }
         });
+        // Accès activité data
         Button bData = (Button)findViewById(R.id.bData);
         bData.setOnClickListener(new View.OnClickListener()
         {
@@ -116,6 +120,7 @@ public class VuePrincipaleActivity extends AppCompatActivity {
                 VuePrincipaleActivity.this.startActivity(activityChangeIntent);
             }
         });
+        // Accès activité alarmes
         Button bAlarme = (Button)findViewById(R.id.bAlarme);
         bAlarme.setOnClickListener(new View.OnClickListener()
         {
@@ -125,6 +130,7 @@ public class VuePrincipaleActivity extends AppCompatActivity {
                 VuePrincipaleActivity.this.startActivity(activityChangeIntent);
             }
         });
+        // Retour à l'identification
         Button bDeconnexion = (Button)findViewById(R.id.bDeconnexion);
         bDeconnexion.setOnClickListener(new View.OnClickListener()
         {

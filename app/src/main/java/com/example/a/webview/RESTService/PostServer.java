@@ -19,8 +19,6 @@ import java.net.URL;
 
 public class PostServer extends AsyncTask<String, String, String> {
 
-
-
     @Override
     protected String doInBackground(String... params) {
         String JsonResponse = null;
@@ -37,21 +35,24 @@ public class PostServer extends AsyncTask<String, String, String> {
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setDoOutput(true);
             // is output buffer writter
+
             urlConnection.setRequestMethod("POST");
             urlConnection.setRequestProperty("Content-Type", "application/json");
             urlConnection.setRequestProperty("Accept", "application/json");
-//set headers and method
+            //set headers and method
+
             urlConnection.connect();
             Writer writer = new BufferedWriter(new OutputStreamWriter(urlConnection.getOutputStream(), "UTF-8"));
             writer.write(JsonDATA);
             Log.i("JsonDATA",JsonDATA);
+            // json data
 
-// json data
             writer.close();
             Log.i("writer.close()","**************");
 
             InputStream inputStream = urlConnection.getInputStream();
-//input stream
+            //input stream
+
             StringBuffer buffer = new StringBuffer();
             if (inputStream == null) {
                     // Nothing to do.
@@ -67,7 +68,8 @@ public class PostServer extends AsyncTask<String, String, String> {
                 return null;
             }
             JsonResponse = buffer.toString();
-//response data
+            //response data
+
             Log.i("JsonResponse", JsonResponse);
             //send to post execute
             return JsonResponse;

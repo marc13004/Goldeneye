@@ -15,37 +15,41 @@ import com.example.a.webview.R;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * Adapter pour la listView de l'activité alarmes
+ */
 public class AlarmesAdapter extends BaseAdapter {
 
-        private List mList;
-        private Context mContext;
-        private LayoutInflater mInflater;
-        private AlarmesAdapter.BtnClickListener mClickListener = null;
+    private List mList;
+    private Context mContext;
+    private LayoutInflater mInflater;
+    private AlarmesAdapter.BtnClickListener mClickListener = null;
 
-        public AlarmesAdapter(Context context, List aList, AlarmesAdapter.BtnClickListener listener) {
+    public AlarmesAdapter(Context context, List aList, AlarmesAdapter.BtnClickListener listener) {
         mContext = context;
         mList = aList;
         mInflater = LayoutInflater.from(mContext);
         mClickListener = listener;
     }
 
-        @Override
-        public int getCount() {
+    @Override
+    public int getCount() {
         return mList.size();
     }
 
-        @Override
-        public Object getItem(int i) {
+    @Override
+    public Object getItem(int i) {
         return mList.get(i);
     }
 
-        @Override
-        public long getItemId(int i) {
+    @Override
+    public long getItemId(int i) {
         return i;
     }
 
-        @Override
-        public View getView(final int i, View convertView, ViewGroup parent) {
+    @Override
+    public View getView(final int i, View convertView, ViewGroup parent) {
         final LinearLayout layoutItem;
 
         if (convertView == null) {
@@ -75,13 +79,13 @@ public class AlarmesAdapter extends BaseAdapter {
         return layoutItem;
     }
 
-        public interface AlarmesAdapterListener {
-        }
-        public interface BtnClickListener {
-            public abstract void onBtnClick(String son, int position, View v);
-        }
+    public interface AlarmesAdapterListener {
+    }
+    public interface BtnClickListener {
+        void onBtnClick(String son, int position, View v);
+    }
 
-        private ArrayList<AlarmesAdapter.AlarmesAdapterListener> mListListener = new ArrayList<AlarmesAdapter.AlarmesAdapterListener>();
+    private ArrayList<AlarmesAdapter.AlarmesAdapterListener> mListListener = new ArrayList<AlarmesAdapter.AlarmesAdapterListener>();
 
     public void addListener(AlarmesAdapter.AlarmesAdapterListener aListener) {
         mListListener.add(aListener);

@@ -1,5 +1,6 @@
 package com.example.a.webview.Logic;
 
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -19,6 +20,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+/**
+ * Adapter pour la listView de l'activité reglages
+ */
 public class ReglagesAdapter extends BaseAdapter {
 
     private List mList;

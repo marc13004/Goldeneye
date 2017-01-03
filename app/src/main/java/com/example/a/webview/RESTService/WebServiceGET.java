@@ -1,9 +1,5 @@
 package com.example.a.webview.RESTService;
 
-/**
- * Created by 34011-82-08 on 28/11/2016.
- */
-
 
 import android.os.AsyncTask;
 import android.util.Log;
@@ -31,7 +27,6 @@ public class WebServiceGET extends AsyncTask<String,String,String>{
     @Override
     protected String doInBackground(String... params)
     {
-
         InputStream stream = null;
         BufferedReader reader = null;
         try {
@@ -68,6 +63,7 @@ public class WebServiceGET extends AsyncTask<String,String,String>{
                     buffer.append(line);
                 }
                 try {
+                    // Json object contenant les réponses du serveur
                     jo = new JSONObject(buffer.toString());
                 } catch (JSONException e) {
                     e.printStackTrace();

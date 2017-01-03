@@ -1,6 +1,5 @@
 package com.example.a.webview.UI;
 
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,25 +19,25 @@ import com.example.a.webview.Logic.ReglagesAdapter;
 
 import java.util.List;
 
-
 public class ReglagesActivity extends AppCompatActivity implements ReglagesAdapter.ReglagesAdapterListener {
 
     GestionSQLite urlsBdd;
     String nom;
     ReglagesAdapter adapter;
-    static String urlchecked = "10.111.61.134";
+    static String urlchecked = "10.111.61.56";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reglages);
 
+        // Barre d'outils
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
 
-        //Création d'une instance de ma classe GestionSQLite
+        // Création d'une instance de ma classe GestionSQLite
         urlsBdd = new GestionSQLite(this);
 
         Button button = (Button) findViewById(R.id.button2);
@@ -47,9 +46,10 @@ public class ReglagesActivity extends AppCompatActivity implements ReglagesAdapt
                 EditText et = (EditText) findViewById(R.id.editText);
                 String value = et.getText().toString();
 
-                //On ouvre la base de données pour écrire dedans
+                // On ouvre la base de données pour écrire dedans
                 urlsBdd.open();
 
+                // Insertion d'une url dans la bdd
                 String url = value;
                 urlsBdd.insertUrl(url);
 
@@ -60,11 +60,12 @@ public class ReglagesActivity extends AppCompatActivity implements ReglagesAdapt
             }
         });
 
-
+        // Récupère la liste d'urls
         urlsBdd.open();
         List maListe =  urlsBdd.getAllUrls();
         urlsBdd.close();
 
+        // Adapter de la liste d'urls
         adapter = new ReglagesAdapter(this, maListe, new ReglagesAdapter.BtnClickListener() {
             @Override
             public void onBtnClick (String url, int position, View v) {
