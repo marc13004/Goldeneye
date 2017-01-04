@@ -83,6 +83,12 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.a.webview.UI.VuePrincipaleActivity" />
         </activity>
+
+        <service android:name=".Logic.DownloadService" />
+        <activity
+            android:name=".UI.VideoActivity"
+            android:label="Téléchargement" />
+
     </application>
 
 </manifest>

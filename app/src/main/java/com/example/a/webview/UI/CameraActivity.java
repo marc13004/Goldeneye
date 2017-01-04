@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
@@ -65,6 +66,11 @@ public class CameraActivity extends AppCompatActivity {
 
     }
 
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_camera, menu);
+        return true;
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -83,6 +89,12 @@ public class CameraActivity extends AppCompatActivity {
                     Toast.makeText(CameraActivity.this,"Streaming always running, do it again",Toast.LENGTH_LONG).show();
                 }
                 return true;
+
+            case R.id.action_video:
+                Intent activityChangeIntent = new Intent(CameraActivity.this, VideoActivity.class);
+                CameraActivity.this.startActivity(activityChangeIntent);
+                return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }
