@@ -20,6 +20,10 @@ android {
     }
 }
 
+repositories {
+    maven { url "https://jitpack.io" }
+}
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
@@ -27,8 +31,7 @@ dependencies {
     compile 'com.android.support:design:25.0.0'
     compile 'com.squareup.retrofit2:retrofit:2.0.2'
     compile 'com.mikhaellopez:circularprogressbar:1.1.1'
-
-
+    compile 'com.github.PhilJay:MPAndroidChart:v3.0.1'
 
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'

@@ -86,7 +86,7 @@ public class VideoAdapter extends BaseAdapter {
         File root = android.os.Environment.getExternalStorageDirectory();
         File dir = new File(root.getAbsolutePath() + "/VideoSurveillance"+File.separator);
         File existFile = new File(dir, holder.description.getText()+".mp4");
-        String Server_Rest_Address = "http://"+ ReglagesActivity.urlchecked+":3002/camera/rec";
+        String Server_Rest_Address = "http://"+ ReglagesActivity.urlchecked+":3000/camera/rec";
 
         if(existFile.exists()){
 

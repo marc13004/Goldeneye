@@ -45,7 +45,7 @@ public class VuePrincipaleActivity extends AppCompatActivity {
 
                 if(isChecked){
                     // Activation du système de détection
-                    String URL = "http://"+ReglagesActivity.urlchecked+":8082/pir";
+                    String URL = "http://"+ReglagesActivity.urlchecked+":3000/pir";
                     WebServiceGET WebServiceGET = new WebServiceGET();
                     WebServiceGET.execute(URL);
                     //if the connexion is running
@@ -67,7 +67,7 @@ public class VuePrincipaleActivity extends AppCompatActivity {
                     // if it is un-checked
                 }else{
                     // Arrêt du système de détection
-                    String URL = "http://"+ReglagesActivity.urlchecked+":8082/pir/stop";
+                    String URL = "http://"+ReglagesActivity.urlchecked+":3000/pir/stop";
                     WebServiceGET WebServiceGet2 = new WebServiceGET();
                     WebServiceGet2.execute(URL);
                     //if connexion ok

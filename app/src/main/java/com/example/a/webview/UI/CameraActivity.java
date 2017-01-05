@@ -29,7 +29,7 @@ public class CameraActivity extends AppCompatActivity {
         ab.setDisplayHomeAsUpEnabled(true);
 
         // Activation serveur de streaming
-        String URL = "http://"+ReglagesActivity.urlchecked+":8081/streaming";
+        String URL = "http://"+ReglagesActivity.urlchecked+":3000/streaming";
         final WebServiceGET WebServiceGET = new WebServiceGET();
         WebServiceGET.execute(URL);
 
@@ -77,7 +77,7 @@ public class CameraActivity extends AppCompatActivity {
             case android.R.id.home:
 
                 // Arrêt du serveur de streaming
-                String URL = "http://"+ReglagesActivity.urlchecked+":8081/streaming/stop";
+                String URL = "http://"+ReglagesActivity.urlchecked+":3000/streaming/stop";
                 WebServiceGET WebServiceGET = new WebServiceGET();
                 WebServiceGET.execute(URL);
 

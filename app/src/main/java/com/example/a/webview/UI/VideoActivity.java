@@ -103,7 +103,7 @@ public class VideoActivity extends AppCompatActivity {
                             e.printStackTrace();
                         }
                         if (post_dict.length() > 0) {
-                            String Server_Rest_Address = "http://"+ReglagesActivity.urlchecked+":3002/camera/rec";
+                            String Server_Rest_Address = "http://"+ReglagesActivity.urlchecked+":3000/camera/rec";
                             AsyncTask loginReturn = myDAOPostServerRest.execute(String.valueOf(post_dict), Server_Rest_Address);
                             Object resultTask = null;
                             try {
@@ -236,7 +236,7 @@ public class VideoActivity extends AppCompatActivity {
                             e.printStackTrace();
                         }
                         if (post_dict.length() > 0) {
-                            String Server_Rest_Address = "http://"+ReglagesActivity.urlchecked+":8085/video";
+                            String Server_Rest_Address = "http://"+ReglagesActivity.urlchecked+":3000/video";
                             AsyncTask loginReturn = myDAOPostServerRest.execute(String.valueOf(post_dict), Server_Rest_Address);
                             Object resultTask = null;
                             try {
@@ -317,7 +317,7 @@ public class VideoActivity extends AppCompatActivity {
         protected Void doInBackground(Void... arg0) {
             HttpHandler http = new HttpHandler();
             // Making a request to url and getting response
-            String url = "http://"+ReglagesActivity.urlchecked+":3006/camera";
+            String url = "http://"+ReglagesActivity.urlchecked+":3000/camera";
             String jsonStr = http.getRequest(url);
 
 
