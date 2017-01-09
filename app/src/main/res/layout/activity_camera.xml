@@ -20,14 +20,19 @@
         android:layout_height="290dp"
         android:layout_centerHorizontal="true"
         android:id="@+id/webview"
-        android:layout_below="@+id/my_toolbar"
-        android:layout_marginTop="130dp" />
+        android:layout_below="@+id/my_toolbar" />
 
     <Button
-        android:text="Enregistrer une video"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/button4"
+        android:background="@android:drawable/ic_menu_rotate"
+        android:layout_below="@+id/webview"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="50dp" />
 </RelativeLayout>

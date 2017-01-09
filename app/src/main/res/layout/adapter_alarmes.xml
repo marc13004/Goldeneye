@@ -9,7 +9,7 @@
 
     <TextView
         android:text="TextView"
-        android:layout_width="120dp"
+        android:layout_width="180dp"
         android:layout_height="match_parent"
         android:id="@+id/textView4"
         android:textAlignment="center"
@@ -23,6 +23,6 @@
         android:layout_height="match_parent"
         android:id="@+id/play"
         android:background="@android:drawable/ic_media_play"
-        android:layout_marginRight="60dp" />
+        android:layout_marginRight="20dp" />
 
 </LinearLayout>

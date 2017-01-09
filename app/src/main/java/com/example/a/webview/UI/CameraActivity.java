@@ -52,15 +52,13 @@ public class CameraActivity extends AppCompatActivity {
             CameraActivity.this.startActivity(activityChangeIntent);
         }
 
-        Button rec = (Button)findViewById(R.id.button4);
-        rec.setOnClickListener(new View.OnClickListener()
+        Button refresh = (Button)findViewById(R.id.button4);
+        refresh.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View v)
             {
-                String URL = "http://"+ReglagesActivity.urlchecked+":3000/camera/rec";
-                WebServiceGET WebServiceGET = new WebServiceGET();
-                WebServiceGET.execute(URL);
-                Toast.makeText(CameraActivity.this,"L'enregistrement d'une vidéo de 20s a démarré",Toast.LENGTH_LONG).show();
+                Intent activityChangeIntent = new Intent(CameraActivity.this, CameraActivity.class);
+                CameraActivity.this.startActivity(activityChangeIntent);
             }
         });
 

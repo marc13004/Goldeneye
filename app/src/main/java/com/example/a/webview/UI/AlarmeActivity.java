@@ -36,9 +36,14 @@ public class AlarmeActivity extends AppCompatActivity implements AlarmesAdapter.
 
         // Liste des alarmes
         List<String> maListe = new ArrayList<>();
-        maListe.add("Elvis");
-        maListe.add("Bob");
-        maListe.add("Alerte");
+        maListe.add("Police");
+        maListe.add("Détection fumée");
+        maListe.add("Alarme classique");
+        maListe.add("Nuclear");
+        maListe.add("Alarme StarWars");
+        maListe.add("007");
+        maListe.add("The good, the bad and the ugly");
+        maListe.add("Dog out");
 
         // Adapter de la liste d'alarmes
         adapter = new AlarmesAdapter(this, maListe, new AlarmesAdapter.BtnClickListener() {

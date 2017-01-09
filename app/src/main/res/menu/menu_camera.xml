@@ -9,6 +9,6 @@
         android:showAsAction="always"
         android:title="Video"
         app:showAsAction="ifRoom"
-        android:icon="@android:drawable/ic_media_play"></item>
+        android:icon="@drawable/recdownload"></item>
 
 </menu>
