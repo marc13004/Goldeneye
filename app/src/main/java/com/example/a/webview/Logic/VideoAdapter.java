@@ -1,28 +1,28 @@
 package com.example.a.webview.Logic;
 
-import android.content.ClipData;
+
+
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.support.v7.widget.RecyclerView;
-import android.util.Base64;
+import android.os.AsyncTask;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.example.a.webview.R;
+import com.example.a.webview.RESTService.DeleteServer;
 import com.example.a.webview.UI.ReglagesActivity;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 
 public class VideoAdapter extends BaseAdapter {
@@ -63,7 +63,7 @@ public class VideoAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int i, View convertView, ViewGroup parent) {
-        ViewHolder holder;
+        final ViewHolder holder;
         final LinearLayout layoutItem;
 
 
@@ -75,26 +75,86 @@ public class VideoAdapter extends BaseAdapter {
             holder.titre = (TextView) convertView.findViewById(R.id.titre);
             holder.description = (TextView) convertView.findViewById(R.id.description);
             holder.teleok = (ImageView) convertView.findViewById(R.id.teleok);
+            holder.deleteicon = (ImageView) convertView.findViewById(R.id.deleteicon);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
 
         holder.titre.setText(mList.get(i).get("id"));
+        final String sidCamera = holder.titre.getText().toString();
         holder.description.setText(mList.get(i).get("video"));
+        final String sVideo = holder.description.getText().toString();
         holder.teleok.setVisibility(View.GONE);
         File root = android.os.Environment.getExternalStorageDirectory();
         File dir = new File(root.getAbsolutePath() + "/VideoSurveillance"+File.separator);
         File existFile = new File(dir, holder.description.getText()+".mp4");
-        String Server_Rest_Address = "http://"+ ReglagesActivity.urlchecked+":3000/camera/rec";
 
         if(existFile.exists()){
 
             holder.teleok.setVisibility(View.VISIBLE);
             notifyDataSetChanged();
         }
-        notifyDataSetChanged();
 
+        holder.deleteicon.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                File root = android.os.Environment.getExternalStorageDirectory();
+                File dir = new File(root.getAbsolutePath() + "/VideoSurveillance"+File.separator);
+                File fileToDelete = new File(dir, holder.description.getText()+".mp4");
+
+                if(fileToDelete.exists()){
+
+                    fileToDelete.delete();
+                }
+                JSONObject post_form = new JSONObject();
+                DeleteServer deleteService = new DeleteServer();
+                try {
+                    post_form.put("idCamera" , sidCamera);
+                    post_form.put("video" , sVideo);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                if (post_form.length() > 0) {
+
+                    // Vérifie que l'identifiant est dans la bdd et que le mot de passe correspond
+                    String Server_Rest_Address="http://"+ReglagesActivity.urlchecked+":3000/camera";
+                    AsyncTask deleteReturn = deleteService.execute(String.valueOf(post_form),Server_Rest_Address);
+                    Object resultTask = null;
+                    try {
+                        resultTask = deleteReturn.get();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    }
+
+                    JSONObject task = null;
+                    try {
+                        task = new JSONObject(resultTask.toString());
+                        String status = task.getString("status");
+                        String message = task.getString("message");
+                        int pid = Integer.parseInt(status);
+                        Log.i("***id int***",pid+"");
+                        // Si delete erronée
+                        if(pid == 1){
+                            Log.i("***delete failed*** ",message+"");
+                        }
+                        // Si delete ok
+                        if(pid == 0){
+                            Log.i("***video deleted*** ",message+"");
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+
+        notifyDataSetChanged();
 
         return convertView;
     }
@@ -102,6 +162,7 @@ public class VideoAdapter extends BaseAdapter {
         public TextView titre;
         public TextView description;
         public ImageView teleok;
+        public ImageView deleteicon;
     }
 
 

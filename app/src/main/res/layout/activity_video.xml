@@ -6,16 +6,130 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorAccent"
+        android:theme="?attr/actionBarTheme"
+        android:minHeight="?attr/actionBarSize"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="20dp"
+        android:id="@+id/toolbar" />
+
     <RelativeLayout
         android:id="@+id/activity_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="@dimen/activity_vertical_margin"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin"
         tools:context="com.example.a.webview.VideoActivity">
 
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swiperefresh"
+            android:layout_width="match_parent"
+            android:layout_height="210dp"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/btn_download">
+
+            <ListView
+                android:layout_width="match_parent"
+                android:id="@+id/LView"
+                android:layout_height="210dp"
+                android:dividerHeight="6dp"
+                android:layout_alignParentStart="true" />
+
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+
+        <TextView
+            android:text="Enregistrer une video"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="80dp"
+            android:id="@+id/textView8"
+            android:layout_alignParentStart="true"
+            android:textStyle="bold"
+            android:textSize="22sp"
+            android:gravity="center_horizontal" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/recicon"
+            android:id="@+id/brecording"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="30dp"
+            android:layout_below="@+id/textView8"
+            android:layout_alignParentStart="true" />
+
+        <ProgressBar
+            style="?android:attr/progressBarStyleSmall"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/progressBar2"
+            android:layout_alignTop="@+id/brecording"
+            android:layout_toEndOf="@+id/brecording"
+            android:layout_alignBottom="@+id/brecording"
+            android:layout_marginLeft="10dp" />
+
+        <TextView
+            android:text="20"
+            android:ems="20"
+            android:id="@+id/recsecond"
+            android:layout_height="wrap_content"
+            android:layout_width="50dp"
+            android:textSize="20sp"
+            tools:gravity="center_horizontal"
+            android:layout_marginEnd="80dp"
+            android:layout_marginTop="5dp"
+            android:layout_below="@+id/seekBar"
+            android:layout_alignEnd="@+id/seekBar" />
+
+        <SeekBar
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/seekBar"
+            android:background="@android:color/background_light"
+            android:layout_marginTop="8dp"
+            android:layout_alignTop="@+id/progressBar2"
+            android:layout_toEndOf="@+id/progressBar2"
+            android:layout_marginLeft="30dp" />
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/btn_download"
+            android:text="Select a Video"
+            android:background="@color/colorAccent"
+            android:textColor="@color/colorPrimary"
+            android:layout_height="wrap_content"
+            android:layout_width="300dp"
+            android:layout_below="@+id/textView9"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="15dp"
+            android:layout_alignParentEnd="true" />
+
+
+        <ProgressBar
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/progressBar"
+            android:layout_below="@+id/brecording"
+            android:layout_marginTop="12dp"
+            android:layout_alignStart="@+id/brecording"
+            android:layout_alignEnd="@+id/seekBar"
+            android:background="@android:color/background_light" />
+
+        <TextView
+            android:text="Télécharger les videos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView9"
+            android:gravity="center_horizontal"
+            android:textStyle="bold"
+            android:textSize="22sp"
+            android:layout_below="@+id/progressBar"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="50dp" />
 
         <com.mikhaellopez.circularprogressbar.CircularProgressBar
             android:layout_width="100dp"
@@ -25,97 +139,19 @@
             app:cpb_background_progressbar_width="15dp"
             app:cpb_progressbar_color="#F44336"
             app:cpb_progressbar_width="30dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            />
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/tChrono"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="40dp" />
-
+            android:layout_marginTop="5dp"
+            android:layout_below="@+id/swiperefresh"
+            android:layout_centerHorizontal="true" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/progress"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="12dp"
-            android:id="@+id/progress_text" />
-
-        <android.support.v7.widget.AppCompatButton
-            android:id="@+id/btn_download"
-            android:text="Select a Video"
-            android:background="@color/colorPrimary"
-            android:textColor="@android:color/white"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:layout_height="wrap_content"
-            android:layout_width="280dp"
-            android:layout_below="@+id/progress_text"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="31dp"
-            android:layout_alignParentEnd="true" />
-
-        <ListView
-            android:layout_width="match_parent"
-            android:id="@+id/LView"
-            android:layout_height="200dp"
-            android:layout_below="@+id/btn_download"
-            android:layout_alignParentStart="true" />
-
-        <Button
-            android:text="stop"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toEndOf="@+id/brecording"
-            android:layout_marginStart="10dp"
-            android:id="@+id/stoprecording"
-            android:layout_alignTop="@+id/brecording"
-            android:layout_alignBottom="@+id/brecording" />
-
-        <ProgressBar
-            android:id="@+id/progressBar"
-            android:layout_height="20dp"
-            android:layout_marginBottom="11dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentStart="true"
-            android:background="@android:color/background_light"
-            android:layout_width="250dp" />
-
-        <Button
-            android:text="rec"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/brecording"
-            android:layout_above="@+id/progressBar"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="14dp"
-            android:layout_marginBottom="21dp" />
-
-        <SeekBar
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/stoprecording"
-            android:layout_toEndOf="@+id/progress"
-            android:layout_marginTop="13dp"
-            android:id="@+id/seekBar" />
-
-        <TextView
-            android:text="20"
-            android:ems="20"
-            android:id="@+id/recsecond"
-            android:layout_height="50dp"
-            android:layout_width="50dp"
-            android:layout_marginEnd="16dp"
-            android:layout_below="@+id/stoprecording"
-            android:layout_alignParentEnd="true"
-            android:textSize="30sp" />
+            android:id="@+id/progress_text"
+            android:layout_marginTop="40dp"
+            android:layout_marginLeft="35dp"
+            android:layout_alignTop="@+id/progress"
+            android:layout_centerHorizontal="true" />
 
 
     </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>
-

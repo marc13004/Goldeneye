@@ -1,8 +1,6 @@
 package com.example.a.webview.Logic;
 
-/**
- * Created by 34011-82-08 on 19/12/2016.
- */
+
 import android.app.IntentService;
 import android.app.NotificationManager;
 import android.content.Context;
@@ -33,6 +31,7 @@ import okhttp3.ResponseBody;
 
 import retrofit2.Call;
 import retrofit2.Retrofit;
+
 
 public class DownloadService extends IntentService {
 
@@ -65,7 +64,7 @@ public class DownloadService extends IntentService {
     private void initDownload(){
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://"+ ReglagesActivity.urlchecked+":8086")
+                .baseUrl("http://"+ ReglagesActivity.urlchecked+":3001")
                 .build();
 
         RetrofitInterface retrofitInterface = retrofit.create(RetrofitInterface.class);

@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
     EditText identifiant;
     EditText password;
+    Button bConnect;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +39,24 @@ public class MainActivity extends AppCompatActivity {
         // Identification
         identifiant = (EditText) findViewById(R.id.identifiant);
         password = (EditText) findViewById(R.id.password);
-        Button bConnect = (Button)findViewById(R.id.bLogin);
+        bConnect = (Button)findViewById(R.id.bLogin);
+        if(ReglagesActivity.urlchecked!=null){
+            bConnectListener();
+        }
+        else{
+            bConnectListenerNoURL();
+        }
+    }
+
+    private void bConnectListenerNoURL(){
+        bConnect.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "Please check URL in settings", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+    private void bConnectListener(){
         bConnect.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v)
@@ -63,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
                     Object resultTask = null;
                     try {
                         resultTask = loginReturn.get();
-                        Log.i("***resultTask***",resultTask.toString());
+                        // Log.i("***resultTask***",resultTask.toString());
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     } catch (ExecutionException e) {
@@ -74,17 +92,22 @@ public class MainActivity extends AppCompatActivity {
                     try {
                         task = new JSONObject(resultTask.toString());
                         String status = task.getString("status");
-                        int pid = Integer.parseInt(status);
-                        Log.i("***id int***",pid+"");
+                        String message = task.getString("message");
+                        int statusId = Integer.parseInt(status);
+                        Log.i("***id int***",statusId+"");
                         // Si identification erronée
-                        if(pid == 1){
-                            Log.i("***Log status not ok***", pid+"");
-                            Toast.makeText(MainActivity.this,"Connexion failed",Toast.LENGTH_LONG).show();
+                        if(statusId == 1){
+                            Log.i("***Log status not ok***", statusId+"");
+                            Toast.makeText(MainActivity.this,"login failed, message: "+ message+ " http status: "+ loginReturn.getStatus() ,Toast.LENGTH_LONG).show();
+                        }
+                        else if(statusId == 2){
+                            Log.i("***Log status not ok***", statusId+"");
+                            Toast.makeText(MainActivity.this,"login failed, message: "+ message+ " http status: "+ loginReturn.getStatus() ,Toast.LENGTH_LONG).show();
                         }
                         // Si identification ok
-                        if(pid == 0){
-                            Log.i("***Log status ok***", pid+"");
-                            Toast.makeText(MainActivity.this,"Connexion success",Toast.LENGTH_LONG).show();
+                        else if(statusId == 0){
+                            Log.i("***Log status ok***", statusId+"");
+                            Toast.makeText(MainActivity.this,message,Toast.LENGTH_LONG).show();
                             Intent activityChangeIntent = new Intent(MainActivity.this, VuePrincipaleActivity.class);
                             MainActivity.this.startActivity(activityChangeIntent);
                         }

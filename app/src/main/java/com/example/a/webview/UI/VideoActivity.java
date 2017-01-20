@@ -1,75 +1,87 @@
 package com.example.a.webview.UI;
 
+
 import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.SimpleAdapter;
-import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.a.webview.Logic.Download;
 import com.example.a.webview.Logic.DownloadService;
-import com.example.a.webview.Logic.HttpHandler;
+import com.example.a.webview.RESTService.HttpHandler;
 import com.example.a.webview.Logic.VideoAdapter;
 import com.example.a.webview.R;
 import com.example.a.webview.RESTService.PostServer;
+import com.example.a.webview.RESTService.WebServiceGET;
 import com.mikhaellopez.circularprogressbar.CircularProgressBar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
 
 
-public class VideoActivity extends AppCompatActivity {
+public class VideoActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
 
     public static String sVideo;
     ArrayList<HashMap<String, String>> objetList;
     public static final String MESSAGE_PROGRESS = "message_progress";
     private static final int PERMISSION_REQUEST_CODE = 1;
-    //ProgressBar mProgressBar;
+    ProgressBar progressBar, progressBar2;
     CircularProgressBar circularProgressBar;
+    SwipeRefreshLayout swipeAndRefresh;
     TextView mProgressText,tChrono,recsecond;
-    Button bDownload,brecording;
+    Button bDownload;
+    ImageView brecording;
     ListView LView;
-    ImageView teleok;
     int timeRec;
+    CountDownTimer timer;
+    Boolean stopRec;
+    Boolean waiting = false;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        stopRec = false;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video);
+
+        // Barre d'outils
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(myToolbar);
+        ActionBar ab = getSupportActionBar();
+        ab.setDisplayHomeAsUpEnabled(true);
+
         objetList = new ArrayList<>();
         new GetVideo().execute();
 
@@ -78,61 +90,22 @@ public class VideoActivity extends AppCompatActivity {
         circularProgressBar.setBackgroundColor(circularProgressBar.getBackgroundColor());
         circularProgressBar.setProgressBarWidth(16);
         circularProgressBar.setBackgroundProgressBarWidth(8);
-
         mProgressText = (TextView) findViewById(R.id.progress_text);
-        tChrono = (TextView) findViewById(R.id.tChrono);
+        progressBar2 = (ProgressBar) findViewById(R.id.progressBar2);
+        progressBar2.getIndeterminateDrawable().setColorFilter(0xFFFF0000, android.graphics.PorterDuff.Mode.MULTIPLY);
+        progressBar2.setVisibility(View.GONE);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+
         bDownload = (Button) findViewById(R.id.btn_download);
         recsecond = (TextView) findViewById(R.id.recsecond);
-        brecording = (Button) findViewById(R.id.brecording);
+        brecording = (ImageView) findViewById(R.id.brecording);
         LView = (ListView) findViewById(R.id.LView);
 
-        brecording.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-               String tRec = (String) recsecond.getText();
+        swipeAndRefresh = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
+        swipeAndRefresh.setOnRefreshListener(this);
 
-                if (!tRec.equals("") && !tRec.contains(".")) {
-                    timeRec = Integer.parseInt(tRec);
-                }else{
-                    //todo->toast
-                }
-                JSONObject post_dict = new JSONObject();
-                PostServer myDAOPostServerRest = new PostServer();
-                        try {
-                            post_dict.put("time", timeRec);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                        if (post_dict.length() > 0) {
-                            String Server_Rest_Address = "http://"+ReglagesActivity.urlchecked+":3000/camera/rec";
-                            AsyncTask loginReturn = myDAOPostServerRest.execute(String.valueOf(post_dict), Server_Rest_Address);
-                            Object resultTask = null;
-                            try {
-                                resultTask = loginReturn.get();
-
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            } catch (ExecutionException e) {
-                                e.printStackTrace();
-                            }
-
-                            // ... and parse the String into a JSON Object
-                            JSONObject task = null;
-                            try {
-                                task = new JSONObject(resultTask.toString());
-                                String id = task.getString("status");
-                                int boolDownload = Integer.parseInt(id);
-                                if (boolDownload == 0) {}
-                                Log.i("***id int***", id);
-
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                            //myDAOPostServerRest.execute(String.valueOf(post_dict),Server_Rest_Address);
-                        }
-            }
-        });
+        bRecordingListener();
         registerReceiver();
-        //new GetVideo().execute();
         openPostVideo();
 
     }
@@ -222,7 +195,6 @@ public class VideoActivity extends AppCompatActivity {
             {
 
                 sVideo = objetList.get(position).get("video");
-
                 bDownload.setBackgroundColor(Color.parseColor("#77BFA3"));
                 bDownload.setText("Confirm");
                 bDownload.setOnClickListener(new View.OnClickListener() {
@@ -254,6 +226,10 @@ public class VideoActivity extends AppCompatActivity {
                                 task = new JSONObject(resultTask.toString());
                                 String id = task.getString("status");
                                 int boolDownload = Integer.parseInt(id);
+                                if(boolDownload == 1){
+                                    Log.i("***Log status not ok***", boolDownload+"");
+                                    Toast.makeText(VideoActivity.this,"Connexion failed",Toast.LENGTH_LONG).show();
+                                }
                                 if (boolDownload == 0) {
                                     bDownload.setBackgroundColor(Color.BLUE);
                                     bDownload.setText("Download");
@@ -265,11 +241,11 @@ public class VideoActivity extends AppCompatActivity {
                                             if(checkPermission()){
 
                                                 startDownload();
+                                                // waiting = true;
                                                 Log.i("***download***", "Started");
-                                                new CountDownTimer(15000, 1000) {
+                                                new CountDownTimer(30000, 1000) {
 
                                                     public void onTick(long millisUntilFinished) {
-                                                        tChrono.setText("retry in "+(millisUntilFinished / 1000));
                                                         bDownload.setOnClickListener(new View.OnClickListener() {
                                                             public void onClick(View v) {
                                                                 bDownload.setText("Wait");
@@ -278,7 +254,7 @@ public class VideoActivity extends AppCompatActivity {
                                                     }
 
                                                     public void onFinish() {
-                                                        tChrono.setText("");
+                                                        //waiting = false;
                                                         bDownload.setBackgroundColor(Color.BLUE);
                                                         bDownload.setText("Select a Video");
                                                         bDownload.setOnClickListener(new View.OnClickListener() {
@@ -307,6 +283,24 @@ public class VideoActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onRefresh() {
+    // create a handler to run after some milli seconds
+    // get data
+        swipeAndRefresh.setRefreshing(true);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                // call method for updated data for the list view
+                openPostVideo();
+
+                swipeAndRefresh.setRefreshing(false);
+            }
+        }, 2000);
+
+    }
+
     class GetVideo extends AsyncTask<Void, Void, Void> {
         @Override
         protected void onPreExecute() {
@@ -315,10 +309,10 @@ public class VideoActivity extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... arg0) {
-            HttpHandler http = new HttpHandler();
+            HttpHandler httpHandler = new HttpHandler();
             // Making a request to url and getting response
             String url = "http://"+ReglagesActivity.urlchecked+":3000/camera";
-            String jsonStr = http.getRequest(url);
+            String jsonStr = httpHandler.getRequest(url);
 
 
             if (jsonStr != null) {
@@ -379,5 +373,170 @@ public class VideoActivity extends AppCompatActivity {
 
         }
     }
+    void startProgress()
+    {
 
+        timer = new CountDownTimer((timeRec*1000)+1000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                Log.i("*** on tick***", "");
+
+                progressBar.setMax(timeRec*1000); //supposing u want to give maximum length of 60 seconds
+                progressBar.setProgress(progressBar.getProgress()+1000);
+            }
+
+            public void onFinish() {
+                // brecording.setImageResource(R.drawable.recicon);
+                bRecordingListener();
+                progressBar.setProgress(0);
+            }
+        }.start();
+    }
+    void bRecordingListener(){
+        brecording.setImageResource(R.drawable.recicon);
+        brecording.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                /*brecording.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View view) {
+
+                    }
+                });*/
+                progressBar2.setVisibility(View.VISIBLE);
+                String tRec = (String) recsecond.getText();
+
+                if (!tRec.equals("") && !tRec.contains(".")) {
+                    timeRec = Integer.parseInt(tRec);
+                }else{
+                    //todo->toast
+                }
+                JSONObject post_dict = new JSONObject();
+                PostServer myDAOPostServerRest = new PostServer();
+                try {
+                    post_dict.put("time", timeRec);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                if (post_dict.length() > 0) {
+                    String Server_Rest_Address = "http://"+ReglagesActivity.urlchecked+":3000/camera/rec";
+                    AsyncTask recReturn = myDAOPostServerRest.execute(String.valueOf(post_dict), Server_Rest_Address);
+                    Object resultTask = null;
+                    try {
+                        resultTask = recReturn.get();
+
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    }
+
+                    // ... and parse the String into a JSON Object
+                    JSONObject task = null;
+                    try {
+                        task = new JSONObject(resultTask.toString());
+                        String id = task.getString("status");
+                        String message = task.getString("message");
+                        int boolDownload = Integer.parseInt(id);
+                        if (boolDownload == 0) {
+                            brecording.setImageResource(R.drawable.stoprec);
+                            progressBar2.setVisibility(View.GONE);
+                            bStopRecordingListener();
+                            startProgress();
+                            Log.i("***rec ok***","message "+message+" http status: "+recReturn.getStatus());
+                            //Toast.makeText(VideoActivity.this,"stop rec ok, message: "+ message+ " http status: "+ stopRecReturn.getStatus() ,Toast.LENGTH_LONG).show();
+
+                        }else if(boolDownload == 1){
+                            Log.i("***rec failed***","message "+message+" http status: "+recReturn.getStatus());
+                            Toast.makeText(VideoActivity.this,"rec failed, message: "+ message+ " http status: "+ recReturn.getStatus() ,Toast.LENGTH_LONG).show();
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+    }
+    void bStopRecordingListener(){
+        brecording.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                timer.cancel();
+                progressBar2.setVisibility(View.VISIBLE);
+                String URL = "http://"+ReglagesActivity.urlchecked+":3000/video/stoprec";
+                WebServiceGET serviceGET = new WebServiceGET();
+                AsyncTask stopRecReturn = serviceGET.execute(URL);
+                Object resultTask = null;
+                try {
+                    resultTask = stopRecReturn.get();
+
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
+                JSONObject task = null;
+                try {
+                    task = new JSONObject(resultTask.toString());
+                    String id = task.getString("status");
+                    String message = task.getString("message");
+                    int boolDownload = Integer.parseInt(id);
+                    if (boolDownload == 0) {
+                        progressBar2.setVisibility(View.GONE);
+                        progressBar.setProgress(0);
+                        bRecordingListener();
+                        Log.i("***stop rec ok***","message "+message+" http status: "+stopRecReturn.getStatus());
+                        //Toast.makeText(VideoActivity.this,"stop rec ok, message: "+ message+ " http status: "+ stopRecReturn.getStatus() ,Toast.LENGTH_LONG).show();
+
+                    }else if(boolDownload == 1){
+                        Log.i("***stop rec failed***", "message "+message+" http status "+stopRecReturn.getStatus());
+                        Toast.makeText(VideoActivity.this,"stop rec failed, message: "+ message+ " http status: "+ stopRecReturn.getStatus() ,Toast.LENGTH_LONG).show();
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                // Démarrage du serveur de streaming
+                String URL = "http://" + ReglagesActivity.urlchecked + ":3000/streaming";
+                final WebServiceGET WebServiceGET = new WebServiceGET();
+                AsyncTask startStreamingReturn = WebServiceGET.execute(URL);
+                Object resultTask = null;
+                try {
+                    resultTask = startStreamingReturn.get();
+
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
+                JSONObject task = null;
+                try {
+                    task = new JSONObject(resultTask.toString());
+                    String id = task.getString("status");
+                    String message = task.getString("message");
+                    int boolDownload = Integer.parseInt(id);
+                    if (boolDownload == 0) {
+                        Intent activityChangeIntent = new Intent(VideoActivity.this, CameraActivity.class);
+                        VideoActivity.this.startActivity(activityChangeIntent);
+                        return true;
+
+                    } else if (boolDownload == 1) {
+                        Log.i("stream failed to start", "msg " + message + " http " + startStreamingReturn.getStatus());
+                        Toast.makeText(VideoActivity.this, "streaming failed, message: " + message + " http status: " + startStreamingReturn.getStatus(), Toast.LENGTH_LONG).show();
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 }

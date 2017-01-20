@@ -1,10 +1,9 @@
 package com.example.a.webview.Logic;
 
-/**
- * Created by 34011-82-08 on 19/12/2016.
- */
+
 import android.os.Parcel;
 import android.os.Parcelable;
+
 
 public class Download  implements Parcelable{
 
