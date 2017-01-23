@@ -29,6 +29,7 @@ import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,23 +51,25 @@ import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
 
 
-public class VideoActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
+public class VideoActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener, SeekBar.OnSeekBarChangeListener {
 
     public static String sVideo;
-    ArrayList<HashMap<String, String>> objetList;
+    public static ArrayList<HashMap<String, String>> objetList;
     public static final String MESSAGE_PROGRESS = "message_progress";
     private static final int PERMISSION_REQUEST_CODE = 1;
     ProgressBar progressBar, progressBar2;
     CircularProgressBar circularProgressBar;
     SwipeRefreshLayout swipeAndRefresh;
-    TextView mProgressText,tChrono,recsecond;
+    TextView mProgressText, recsecond;
     Button bDownload;
     ImageView brecording;
+    SeekBar seekBar;
     ListView LView;
     int timeRec;
     CountDownTimer timer;
     Boolean stopRec;
     Boolean waiting = false;
+
 
 
     @Override
@@ -97,8 +100,13 @@ public class VideoActivity extends AppCompatActivity implements SwipeRefreshLayo
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         bDownload = (Button) findViewById(R.id.btn_download);
-        recsecond = (TextView) findViewById(R.id.recsecond);
         brecording = (ImageView) findViewById(R.id.brecording);
+
+        recsecond = (TextView) findViewById(R.id.recsecond);
+        seekBar = (SeekBar) findViewById(R.id.seekBar);
+        seekBar.setMax(299);
+        seekBar.setOnSeekBarChangeListener(this);
+
         LView = (ListView) findViewById(R.id.LView);
 
         swipeAndRefresh = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
@@ -107,6 +115,37 @@ public class VideoActivity extends AppCompatActivity implements SwipeRefreshLayo
         bRecordingListener();
         registerReceiver();
         openPostVideo();
+
+    }
+
+    @Override
+    public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
+        int min = 1;
+        int progres = min + progress;
+        String minutes = String.valueOf(progres);
+        if (progres==1){
+            recsecond.setText("1 minute");
+        }else{
+            recsecond.setText(minutes+" minutes");
+        }
+    }
+
+    @Override
+    public void onStartTrackingTouch(SeekBar seekBar) {
+        recsecond.setTextColor(Color.RED);
+        recsecond.setTextSize(18);
+    }
+
+    @Override
+    public void onStopTrackingTouch(SeekBar seekBar) {
+        recsecond.setTextColor(getResources().getColor(R.color.green));
+        recsecond.setTextSize(14);
+        int mess = seekBar.getProgress()+1;
+        if (mess==1){
+            Toast.makeText(VideoActivity.this,"La video durera au maximum 1 minute",Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(VideoActivity.this,"La video durera au maximum "+ String.valueOf(mess) +" minutes",Toast.LENGTH_SHORT).show();
+        }
 
     }
 
@@ -190,12 +229,16 @@ public class VideoActivity extends AppCompatActivity implements SwipeRefreshLayo
         LView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position,
-                                    long id)
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
+                for (int i = 0; i < LView.getChildCount(); i++) {
+                    View listItem = LView.getChildAt(i);
+                    listItem.setBackgroundColor(Color.WHITE);
+                }
+                view.setBackgroundColor(Color.parseColor("#99FF66"));
 
                 sVideo = objetList.get(position).get("video");
-                bDownload.setBackgroundColor(Color.parseColor("#77BFA3"));
+                bDownload.setBackgroundColor(Color.parseColor("#99FF66"));
                 bDownload.setText("Confirm");
                 bDownload.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
@@ -231,7 +274,7 @@ public class VideoActivity extends AppCompatActivity implements SwipeRefreshLayo
                                     Toast.makeText(VideoActivity.this,"Connexion failed",Toast.LENGTH_LONG).show();
                                 }
                                 if (boolDownload == 0) {
-                                    bDownload.setBackgroundColor(Color.BLUE);
+                                    bDownload.setBackgroundColor(Color.parseColor("#CC9933"));
                                     bDownload.setText("Download");
                                     bDownload.setOnClickListener(new View.OnClickListener()
                                     {
@@ -292,7 +335,10 @@ public class VideoActivity extends AppCompatActivity implements SwipeRefreshLayo
             @Override
             public void run() {
 
-                // call method for updated data for the list view
+                objetList.clear();
+
+                // call methods for updated data for the list view
+                new GetVideo().execute();
                 openPostVideo();
 
                 swipeAndRefresh.setRefreshing(false);
@@ -301,11 +347,13 @@ public class VideoActivity extends AppCompatActivity implements SwipeRefreshLayo
 
     }
 
-    class GetVideo extends AsyncTask<Void, Void, Void> {
+
+
+    public class GetVideo extends AsyncTask<Void, Void, Void> {
+
         @Override
         protected void onPreExecute() {
         }
-
 
         @Override
         protected Void doInBackground(Void... arg0) {
@@ -381,7 +429,7 @@ public class VideoActivity extends AppCompatActivity implements SwipeRefreshLayo
             public void onTick(long millisUntilFinished) {
                 Log.i("*** on tick***", "");
 
-                progressBar.setMax(timeRec*1000); //supposing u want to give maximum length of 60 seconds
+                progressBar.setMax(timeRec*1000);
                 progressBar.setProgress(progressBar.getProgress()+1000);
             }
 
@@ -396,16 +444,12 @@ public class VideoActivity extends AppCompatActivity implements SwipeRefreshLayo
         brecording.setImageResource(R.drawable.recicon);
         brecording.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                /*brecording.setOnClickListener(new View.OnClickListener() {
-                    public void onClick(View view) {
 
-                    }
-                });*/
                 progressBar2.setVisibility(View.VISIBLE);
                 String tRec = (String) recsecond.getText();
 
                 if (!tRec.equals("") && !tRec.contains(".")) {
-                    timeRec = Integer.parseInt(tRec);
+                    timeRec = Integer.parseInt(tRec)*60;
                 }else{
                     //todo->toast
                 }

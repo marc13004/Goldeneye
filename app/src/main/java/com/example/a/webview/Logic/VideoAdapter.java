@@ -3,7 +3,10 @@ package com.example.a.webview.Logic;
 
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,10 +15,17 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.example.a.webview.R;
 import com.example.a.webview.RESTService.DeleteServer;
+import com.example.a.webview.RESTService.HttpHandler;
+import com.example.a.webview.UI.MainActivity;
 import com.example.a.webview.UI.ReglagesActivity;
+import com.example.a.webview.UI.VideoActivity;
+import com.example.a.webview.UI.VuePrincipaleActivity;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -99,58 +109,76 @@ public class VideoAdapter extends BaseAdapter {
         holder.deleteicon.setOnClickListener(new View.OnClickListener() {
 
             @Override
-            public void onClick(View v) {
-                File root = android.os.Environment.getExternalStorageDirectory();
-                File dir = new File(root.getAbsolutePath() + "/VideoSurveillance"+File.separator);
-                File fileToDelete = new File(dir, holder.description.getText()+".mp4");
+            public void onClick(final View v) {
 
-                if(fileToDelete.exists()){
+                AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+                builder.setTitle("Confirmation");
 
-                    fileToDelete.delete();
-                }
-                JSONObject post_form = new JSONObject();
-                DeleteServer deleteService = new DeleteServer();
-                try {
-                    post_form.put("idCamera" , sidCamera);
-                    post_form.put("video" , sVideo);
+                builder.setMessage("Confirmer la suppression de la video");
+                DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        File root = android.os.Environment.getExternalStorageDirectory();
+                        File dir = new File(root.getAbsolutePath() + "/VideoSurveillance"+File.separator);
+                        File fileToDelete = new File(dir, holder.description.getText()+".mp4");
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                if (post_form.length() > 0) {
+                        if(fileToDelete.exists()){
 
-                    // Vérifie que l'identifiant est dans la bdd et que le mot de passe correspond
-                    String Server_Rest_Address="http://"+ReglagesActivity.urlchecked+":3000/camera";
-                    AsyncTask deleteReturn = deleteService.execute(String.valueOf(post_form),Server_Rest_Address);
-                    Object resultTask = null;
-                    try {
-                        resultTask = deleteReturn.get();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    } catch (ExecutionException e) {
-                        e.printStackTrace();
-                    }
-
-                    JSONObject task = null;
-                    try {
-                        task = new JSONObject(resultTask.toString());
-                        String status = task.getString("status");
-                        String message = task.getString("message");
-                        int pid = Integer.parseInt(status);
-                        Log.i("***id int***",pid+"");
-                        // Si delete erronée
-                        if(pid == 1){
-                            Log.i("***delete failed*** ",message+"");
+                            fileToDelete.delete();
                         }
-                        // Si delete ok
-                        if(pid == 0){
-                            Log.i("***video deleted*** ",message+"");
+                        JSONObject post_form = new JSONObject();
+                        DeleteServer deleteService = new DeleteServer();
+                        try {
+                            post_form.put("idCamera" , sidCamera);
+                            post_form.put("video" , sVideo);
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        if (post_form.length() > 0) {
+
+                            // Vérifie que l'identifiant est dans la bdd et que le mot de passe correspond
+                            String Server_Rest_Address="http://"+ReglagesActivity.urlchecked+":3000/camera";
+                            AsyncTask deleteReturn = deleteService.execute(String.valueOf(post_form),Server_Rest_Address);
+                            Object resultTask = null;
+                            try {
+                                resultTask = deleteReturn.get();
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            } catch (ExecutionException e) {
+                                e.printStackTrace();
+                            }
+
+                            JSONObject task = null;
+                            try {
+                                task = new JSONObject(resultTask.toString());
+                                String status = task.getString("status");
+                                String message = task.getString("message");
+                                int pid = Integer.parseInt(status);
+                                Log.i("***id int***",pid+"");
+                                // Si delete erronée
+                                if(pid == 1){
+                                    Log.i("***delete failed*** ",message+"");
+                                }
+                                // Si delete ok
+                                if(pid == 0){
+                                    Log.i("***video deleted*** ",message+"");
+                                }
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                         }
 
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                        Intent activityChangeIntent = new Intent(v.getContext(), VideoActivity.class);
+                        v.getContext().startActivity(activityChangeIntent);
+
                     }
-                }
+                };
+                builder.setPositiveButton("Oui", listener);
+                builder.setNegativeButton("Non", null);
+                builder.show();
+
             }
         });
 

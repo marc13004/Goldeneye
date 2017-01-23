@@ -26,15 +26,16 @@
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/swiperefresh"
             android:layout_width="match_parent"
-            android:layout_height="210dp"
+            android:layout_height="200dp"
             android:layout_alignParentStart="true"
-            android:layout_below="@+id/btn_download">
+            android:layout_below="@+id/btn_download"
+            android:layout_alignParentBottom="true">
 
             <ListView
                 android:layout_width="match_parent"
                 android:id="@+id/LView"
-                android:layout_height="210dp"
-                android:dividerHeight="6dp"
+                android:layout_height="200dp"
+                android:dividerHeight="8dp"
                 android:layout_alignParentStart="true" />
 
         </android.support.v4.widget.SwipeRefreshLayout>
@@ -52,16 +53,6 @@
             android:textSize="22sp"
             android:gravity="center_horizontal" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/recicon"
-            android:id="@+id/brecording"
-            android:layout_marginStart="45dp"
-            android:layout_marginTop="30dp"
-            android:layout_below="@+id/textView8"
-            android:layout_alignParentStart="true" />
-
         <ProgressBar
             style="?android:attr/progressBarStyleSmall"
             android:layout_width="40dp"
@@ -73,17 +64,18 @@
             android:layout_marginLeft="10dp" />
 
         <TextView
-            android:text="20"
             android:ems="20"
             android:id="@+id/recsecond"
             android:layout_height="wrap_content"
-            android:layout_width="50dp"
-            android:textSize="20sp"
+            android:layout_width="150dp"
+            android:textSize="14sp"
             tools:gravity="center_horizontal"
-            android:layout_marginEnd="80dp"
+            android:layout_marginEnd="40dp"
             android:layout_marginTop="5dp"
             android:layout_below="@+id/seekBar"
-            android:layout_alignEnd="@+id/seekBar" />
+            android:layout_alignEnd="@+id/seekBar"
+            android:text="1 minute"
+            android:textColor="@color/green" />
 
         <SeekBar
             android:layout_width="200dp"
@@ -92,19 +84,8 @@
             android:background="@android:color/background_light"
             android:layout_marginTop="8dp"
             android:layout_alignTop="@+id/progressBar2"
-            android:layout_toEndOf="@+id/progressBar2"
-            android:layout_marginLeft="30dp" />
-
-        <android.support.v7.widget.AppCompatButton
-            android:id="@+id/btn_download"
-            android:text="Select a Video"
-            android:background="@color/colorAccent"
-            android:textColor="@color/colorPrimary"
-            android:layout_height="wrap_content"
-            android:layout_width="300dp"
-            android:layout_below="@+id/textView9"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="15dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
             android:layout_alignParentEnd="true" />
 
 
@@ -129,28 +110,53 @@
             android:textSize="22sp"
             android:layout_below="@+id/progressBar"
             android:layout_alignParentStart="true"
-            android:layout_marginTop="50dp" />
-
-        <com.mikhaellopez.circularprogressbar.CircularProgressBar
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:id="@+id/progress"
-            app:cpb_background_progressbar_color="#FFCDD2"
-            app:cpb_background_progressbar_width="15dp"
-            app:cpb_progressbar_color="#F44336"
-            app:cpb_progressbar_width="30dp"
-            android:layout_marginTop="5dp"
-            android:layout_below="@+id/swiperefresh"
-            android:layout_centerHorizontal="true" />
+            android:layout_marginTop="40dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/progress_text"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="20dp"
             android:layout_marginLeft="35dp"
             android:layout_alignTop="@+id/progress"
+            android:layout_centerHorizontal="true"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:elevation="1dp" />
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/btn_download"
+            android:text="Select a Video"
+            android:background="@color/colorAccent"
+            android:textColor="@color/colorPrimary"
+            android:layout_height="wrap_content"
+            android:layout_width="300dp"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/progress"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true" />
+
+        <com.mikhaellopez.circularprogressbar.CircularProgressBar
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:id="@+id/progress"
+            app:cpb_background_progressbar_color="#FFCDD2"
+            app:cpb_background_progressbar_width="15dp"
+            app:cpb_progressbar_color="#F44336"
+            app:cpb_progressbar_width="30dp"
+            android:layout_marginTop="11dp"
+            android:layout_below="@+id/textView9"
             android:layout_centerHorizontal="true" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/recicon"
+            android:id="@+id/brecording"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="30dp"
+            android:layout_below="@+id/textView8"
+            android:layout_alignParentStart="true" />
 
 
     </RelativeLayout>
