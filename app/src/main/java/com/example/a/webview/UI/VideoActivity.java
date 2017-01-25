@@ -71,7 +71,6 @@ public class VideoActivity extends AppCompatActivity implements SwipeRefreshLayo
     Boolean waiting = false;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -104,7 +103,7 @@ public class VideoActivity extends AppCompatActivity implements SwipeRefreshLayo
 
         recsecond = (TextView) findViewById(R.id.recsecond);
         seekBar = (SeekBar) findViewById(R.id.seekBar);
-        seekBar.setMax(299);
+        seekBar.setMax(59);
         seekBar.setOnSeekBarChangeListener(this);
 
         LView = (ListView) findViewById(R.id.LView);
@@ -123,11 +122,7 @@ public class VideoActivity extends AppCompatActivity implements SwipeRefreshLayo
         int min = 1;
         int progres = min + progress;
         String minutes = String.valueOf(progres);
-        if (progres==1){
-            recsecond.setText("1 minute");
-        }else{
-            recsecond.setText(minutes+" minutes");
-        }
+        recsecond.setText(minutes);
     }
 
     @Override
@@ -298,7 +293,8 @@ public class VideoActivity extends AppCompatActivity implements SwipeRefreshLayo
 
                                                     public void onFinish() {
                                                         //waiting = false;
-                                                        bDownload.setBackgroundColor(Color.BLUE);
+                                                        bDownload.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+                                                        bDownload.setTextColor(getResources().getColor(R.color.colorPrimary));
                                                         bDownload.setText("Select a Video");
                                                         bDownload.setOnClickListener(new View.OnClickListener() {
                                                             public void onClick(View v) {
@@ -449,7 +445,7 @@ public class VideoActivity extends AppCompatActivity implements SwipeRefreshLayo
                 String tRec = (String) recsecond.getText();
 
                 if (!tRec.equals("") && !tRec.contains(".")) {
-                    timeRec = Integer.parseInt(tRec)*60;
+                    timeRec = (Integer.parseInt(tRec))*60;
                 }else{
                     //todo->toast
                 }

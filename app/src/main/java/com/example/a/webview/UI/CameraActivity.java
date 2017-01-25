@@ -24,6 +24,40 @@ import java.util.concurrent.ExecutionException;
 
 public class CameraActivity extends AppCompatActivity {
 
+    protected void onPause() {
+        super.onPause();
+
+        // Arrêt du serveur de streaming
+        String URL = "http://"+ReglagesActivity.urlchecked+":3000/streaming/stop";
+        final WebServiceGET WebServiceGET = new WebServiceGET();
+        AsyncTask stopStreamingReturn = WebServiceGET.execute(URL);
+        Object resultTask = null;
+        try {
+            resultTask = stopStreamingReturn.get();
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        JSONObject task = null;
+        try {
+            task = new JSONObject(resultTask.toString());
+            String id = task.getString("status");
+            String message = task.getString("message");
+            int boolDownload = Integer.parseInt(id);
+            if (boolDownload == 0) {
+                Toast.makeText(CameraActivity.this, "Streaming stopped", Toast.LENGTH_SHORT).show();
+
+            }else if(boolDownload == 1){
+                Toast.makeText(CameraActivity.this,"streaming failed, message: "+ message+ " http status: "+ stopStreamingReturn.getStatus() ,Toast.LENGTH_LONG).show();
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,8 +77,8 @@ public class CameraActivity extends AppCompatActivity {
         {
             public void onClick(View v)
             {
-                Intent activityChangeIntent = new Intent(CameraActivity.this, CameraActivity.class);
-                CameraActivity.this.startActivity(activityChangeIntent);
+                // Activation serveur de streaming
+                getStreaming();
             }
         });
     }
@@ -100,73 +134,13 @@ public class CameraActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                // Arrêt du serveur de streaming
-                String URL = "http://"+ReglagesActivity.urlchecked+":3000/streaming/stop";
-                final WebServiceGET WebServiceGET = new WebServiceGET();
-                AsyncTask stopStreamingReturn = WebServiceGET.execute(URL);
-                Object resultTask = null;
-                try {
-                    resultTask = stopStreamingReturn.get();
-
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                }
-                JSONObject task = null;
-                try {
-                    task = new JSONObject(resultTask.toString());
-                    String id = task.getString("status");
-                    String message = task.getString("message");
-                    int boolDownload = Integer.parseInt(id);
-                    if (boolDownload == 0) {
                         Intent activityChangeIntent = new Intent(CameraActivity.this, VuePrincipaleActivity.class);
                         CameraActivity.this.startActivity(activityChangeIntent);
-                        return true;
-
-                    }else if(boolDownload == 1){
-                        Log.i("stream failed to stop", "msg "+message+" http "+stopStreamingReturn.getStatus());
-                        Toast.makeText(CameraActivity.this,"streaming failed, message: "+ message+ " http status: "+ stopStreamingReturn.getStatus() ,Toast.LENGTH_LONG).show();
-                    }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
 
             case R.id.action_video:
-                // Arrêt du serveur de streaming
-                String URLstop = "http://"+ReglagesActivity.urlchecked+":3000/streaming/stop";
-                final WebServiceGET WebServiceGET2 = new WebServiceGET();
-                AsyncTask stopStreamingReturn2 = WebServiceGET2.execute(URLstop);
-                Object resultTask2 = null;
-                try {
-                    resultTask2 = stopStreamingReturn2.get();
+                        Intent activityChangeIntent2 = new Intent(CameraActivity.this, VideoActivity.class);
+                        CameraActivity.this.startActivity(activityChangeIntent2);
 
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                }
-                JSONObject task2 = null;
-                try {
-                    task2 = new JSONObject(resultTask2.toString());
-                    Log.i("***task***",task2+"");
-                    String id = task2.getString("status");
-                    String message = task2.getString("message");
-                    int boolDownload = Integer.parseInt(id);
-                    if (boolDownload == 0) {
-                        Intent activityChangeIntent = new Intent(CameraActivity.this, VideoActivity.class);
-                        CameraActivity.this.startActivity(activityChangeIntent);
-                        return true;
-
-                    }else if(boolDownload == 1){
-                        Log.i("stream failed to stop", "msg "+message+" http "+stopStreamingReturn2.getStatus());
-                        Toast.makeText(CameraActivity.this,"streaming failed, message: "+ message+ " http status: "+ stopStreamingReturn2.getStatus() ,Toast.LENGTH_LONG).show();
-                    }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
             default:
                 return super.onOptionsItemSelected(item);
         }

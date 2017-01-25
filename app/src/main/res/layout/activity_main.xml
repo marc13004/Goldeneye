@@ -71,8 +71,8 @@
         android:layout_alignEnd="@+id/password"
         android:password="false"
         style="@style/Widget.AppCompat.Button.Colored"
-        android:textColorLink="@android:color/holo_green_light"
         android:textStyle="bold"
-        android:textColor="@android:color/holo_green_dark" />
+        android:textColor="@android:color/background_light"
+        android:background="@color/green" />
 
 </RelativeLayout>

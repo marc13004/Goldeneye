@@ -53,40 +53,19 @@
             android:textSize="22sp"
             android:gravity="center_horizontal" />
 
-        <ProgressBar
-            style="?android:attr/progressBarStyleSmall"
-            android:layout_width="40dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/progressBar2"
-            android:layout_alignTop="@+id/brecording"
-            android:layout_toEndOf="@+id/brecording"
-            android:layout_alignBottom="@+id/brecording"
-            android:layout_marginLeft="10dp" />
-
         <TextView
             android:ems="20"
             android:id="@+id/recsecond"
             android:layout_height="wrap_content"
-            android:layout_width="150dp"
+            android:layout_width="50dp"
             android:textSize="14sp"
             tools:gravity="center_horizontal"
-            android:layout_marginEnd="40dp"
+            android:layout_marginEnd="120dp"
             android:layout_marginTop="5dp"
             android:layout_below="@+id/seekBar"
             android:layout_alignEnd="@+id/seekBar"
-            android:text="1 minute"
+            android:text="1"
             android:textColor="@color/green" />
-
-        <SeekBar
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/seekBar"
-            android:background="@android:color/background_light"
-            android:layout_marginTop="8dp"
-            android:layout_alignTop="@+id/progressBar2"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:layout_alignParentEnd="true" />
 
 
         <ProgressBar
@@ -94,11 +73,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/progressBar"
-            android:layout_below="@+id/brecording"
-            android:layout_marginTop="12dp"
-            android:layout_alignStart="@+id/brecording"
+            android:layout_below="@+id/recsecond"
+            android:layout_marginTop="8dp"
+            android:progressBackgroundTint="@color/red"
+            android:progressTint="@color/green"
             android:layout_alignEnd="@+id/seekBar"
-            android:background="@android:color/background_light" />
+            android:layout_alignStart="@+id/seekBar" />
 
         <TextView
             android:text="Télécharger les videos"
@@ -156,7 +136,27 @@
             android:layout_marginStart="30dp"
             android:layout_marginTop="30dp"
             android:layout_below="@+id/textView8"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentStart="true"
+            android:paddingTop="5dp" />
+
+        <ProgressBar
+            style="?android:attr/progressBarStyleSmall"
+            android:layout_width="50dp"
+            android:layout_height="40dp"
+            android:id="@+id/progressBar2"
+            android:layout_below="@+id/brecording"
+            android:layout_alignEnd="@+id/brecording" />
+
+        <SeekBar
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/seekBar"
+            android:progressTint="@color/green"
+            android:pointerIcon="none"
+            android:progressBackgroundTint="@color/red"
+            android:layout_alignTop="@+id/brecording"
+            android:layout_toEndOf="@+id/brecording"
+            android:layout_marginStart="30dp" />
 
 
     </RelativeLayout>

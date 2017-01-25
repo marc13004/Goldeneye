@@ -89,11 +89,11 @@
         android:textStyle="bold|italic" />
 
     <Button
-        android:text="Deconnexion"
+        android:text="Verrouiller"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/bDeconnexion"
-        android:background="@android:color/holo_green_dark"
+        android:background="@color/red"
         android:textStyle="bold"
         android:textColor="@android:color/background_light"
         android:textSize="20sp"
