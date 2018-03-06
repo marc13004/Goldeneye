@@ -44,6 +44,7 @@ public class DownloadService extends IntentService {
     private int totalFileSize;
     private Download download;
 
+
     @Override
     protected void onHandleIntent(Intent intent) {
 
@@ -86,7 +87,8 @@ public class DownloadService extends IntentService {
 
         int count;
         byte data[] = new byte[1024 * 4];
-        long fileSize = body.contentLength();
+        long fileSize = VideoActivity.filesize;
+        //long fileSize = body.contentLength();
         InputStream bis = new BufferedInputStream(body.byteStream(), 1024 * 8);
         File root = Environment.getExternalStorageDirectory();
         File dir = new File(root.getAbsolutePath() + "/VideoSurveillance"+File.separator);
@@ -106,9 +108,10 @@ public class DownloadService extends IntentService {
             total += count;
             totalFileSize = (int) (fileSize / (Math.pow(1024, 2)));
             double current = Math.round(total / (Math.pow(1024, 2)));
-
             int progress = (int) ((total * 100) / fileSize);
-
+            Log.i("service progress",progress+"");
+            Log.i("service fileSize",fileSize+"");
+            Log.i("service totalFileSize",totalFileSize+"");
             long currentTime = System.currentTimeMillis() - startTime;
 
             Download download = new Download();
@@ -135,7 +138,8 @@ public class DownloadService extends IntentService {
 
         sendIntent(download);
         notificationBuilder.setProgress(10,download.getProgress(),false);
-        notificationBuilder.setContentText("Downloading file "+ download.getCurrentFileSize() +"/"+totalFileSize +" MB");
+        notificationBuilder.setContentText("Downloading file "+ download.getCurrentFileSize() +"/"+download.getTotalFileSize() +" MB");
+        Log.i("***download service***",VideoActivity.filesize+"");
         notificationManager.notify(0, notificationBuilder.build());
     }
 
@@ -151,7 +155,6 @@ public class DownloadService extends IntentService {
         download = new Download();
         download.setProgress(100);
         sendIntent(download);
-
         notificationManager.cancel(0);
         notificationBuilder.setProgress(0,0,false);
         notificationBuilder.setContentText("File Downloaded");

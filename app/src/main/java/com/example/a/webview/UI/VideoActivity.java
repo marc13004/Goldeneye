@@ -57,18 +57,22 @@ public class VideoActivity extends AppCompatActivity implements SwipeRefreshLayo
     public static ArrayList<HashMap<String, String>> objetList;
     public static final String MESSAGE_PROGRESS = "message_progress";
     private static final int PERMISSION_REQUEST_CODE = 1;
+    public static long filesize;
+    public static int filesizemb;
     ProgressBar progressBar, progressBar2;
     CircularProgressBar circularProgressBar;
     SwipeRefreshLayout swipeAndRefresh;
     TextView mProgressText, recsecond;
-    Button bDownload;
+    public static Button bDownload;
     ImageView brecording;
     SeekBar seekBar;
     ListView LView;
     int timeRec;
     CountDownTimer timer;
-    Boolean stopRec;
-    Boolean waiting = false;
+    Boolean stopRec, wait = false;
+    public static Boolean pending = false;
+
+
 
 
     @Override
@@ -118,6 +122,13 @@ public class VideoActivity extends AppCompatActivity implements SwipeRefreshLayo
     }
 
     @Override
+    public void onPause() {
+        super.onPause();
+        startDownload();
+    }
+
+
+    @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
         int min = 1;
         int progres = min + progress;
@@ -161,6 +172,7 @@ public class VideoActivity extends AppCompatActivity implements SwipeRefreshLayo
 
     }
 
+
     private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -172,10 +184,26 @@ public class VideoActivity extends AppCompatActivity implements SwipeRefreshLayo
                 if(download.getProgress() == 100){
 
                     mProgressText.setText("File Download Complete");
+                    openPostVideo();
+                    bDownload.setBackgroundColor(Color.WHITE);
+                    bDownload.setText("Select a video");
+
 
                 } else {
+                    mProgressText.setText(String.format("Downloaded (%d/%d) MB",download.getCurrentFileSize(),filesizemb));
+                    bDownload.setOnClickListener(new View.OnClickListener() {
+                        public void onClick(View v) {
+                            bDownload.setText("Wait");
+                            Toast.makeText(VideoActivity.this, "Download in progress please wait", Toast.LENGTH_LONG).show();
 
-                    mProgressText.setText(String.format("Downloaded (%d/%d) MB",download.getCurrentFileSize(),download.getTotalFileSize()));
+                        }
+                    });
+                    LView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        }
+                    });
 
                 }
             }
@@ -237,7 +265,13 @@ public class VideoActivity extends AppCompatActivity implements SwipeRefreshLayo
                 bDownload.setText("Confirm");
                 bDownload.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                        bDownload.setText("Wait");
+                        bDownload.setOnClickListener(new View.OnClickListener() {
+                            public void onClick(View v) {
+                                bDownload.setText("Wait");
+                                Toast.makeText(VideoActivity.this, "One video already confirmed ", Toast.LENGTH_LONG).show();
+
+                            }
+                        });
                         JSONObject post_dict = new JSONObject();
                         PostServer myDAOPostServerRest = new PostServer();
                         try {
@@ -246,7 +280,7 @@ public class VideoActivity extends AppCompatActivity implements SwipeRefreshLayo
                             e.printStackTrace();
                         }
                         if (post_dict.length() > 0) {
-                            String Server_Rest_Address = "http://"+ReglagesActivity.urlchecked+":3000/video";
+                            String Server_Rest_Address = "http://" + ReglagesActivity.urlchecked + ":3000/video";
                             AsyncTask loginReturn = myDAOPostServerRest.execute(String.valueOf(post_dict), Server_Rest_Address);
                             Object resultTask = null;
                             try {
@@ -263,46 +297,33 @@ public class VideoActivity extends AppCompatActivity implements SwipeRefreshLayo
                             try {
                                 task = new JSONObject(resultTask.toString());
                                 String id = task.getString("status");
+                                String size = task.getString("size");
+                                String sizemb = task.getString("sizemb");
+                                try {
+                                    double fileSizeDouble = Double.parseDouble(size);
+                                    double fileSizeMBDouble = Double.parseDouble(sizemb);
+                                    filesizemb = ((int) fileSizeMBDouble);
+                                    filesize = ((long) fileSizeDouble);
+                                    Log.i("fileSizeDouble", fileSizeDouble + "****" + filesize);
+                                    Log.i("fileSizeMBDouble", fileSizeMBDouble + "****" + ((int) fileSizeMBDouble));
+                                } catch (NumberFormatException e) {
+                                    Log.i("NumberFormatException", "not a number");
+                                }
+
                                 int boolDownload = Integer.parseInt(id);
-                                if(boolDownload == 1){
-                                    Log.i("***Log status not ok***", boolDownload+"");
-                                    Toast.makeText(VideoActivity.this,"Connexion failed",Toast.LENGTH_LONG).show();
+                                if (boolDownload == 1) {
+                                    Log.i("***Log status not ok***", boolDownload + "");
+                                    Toast.makeText(VideoActivity.this, "Connexion failed", Toast.LENGTH_LONG).show();
                                 }
                                 if (boolDownload == 0) {
                                     bDownload.setBackgroundColor(Color.parseColor("#CC9933"));
                                     bDownload.setText("Download");
-                                    bDownload.setOnClickListener(new View.OnClickListener()
-                                    {
-                                        public void onClick(View v)
-                                        {
+
+                                    bDownload.setOnClickListener(new View.OnClickListener() {
+                                        public void onClick(View v) {
                                             Log.i("***download***", "onclick");
-                                            if(checkPermission()){
-
+                                            if (checkPermission()) {
                                                 startDownload();
-                                                // waiting = true;
-                                                Log.i("***download***", "Started");
-                                                new CountDownTimer(30000, 1000) {
-
-                                                    public void onTick(long millisUntilFinished) {
-                                                        bDownload.setOnClickListener(new View.OnClickListener() {
-                                                            public void onClick(View v) {
-                                                                bDownload.setText("Wait");
-                                                            }
-                                                        });
-                                                    }
-
-                                                    public void onFinish() {
-                                                        //waiting = false;
-                                                        bDownload.setBackgroundColor(getResources().getColor(R.color.colorAccent));
-                                                        bDownload.setTextColor(getResources().getColor(R.color.colorPrimary));
-                                                        bDownload.setText("Select a Video");
-                                                        bDownload.setOnClickListener(new View.OnClickListener() {
-                                                            public void onClick(View v) {
-                                                                VideoActivity.this.openPostVideo();
-                                                            }
-                                                        });
-                                                    }
-                                                }.start();
                                             } else {
                                                 requestPermission();
                                             }
@@ -324,8 +345,8 @@ public class VideoActivity extends AppCompatActivity implements SwipeRefreshLayo
 
     @Override
     public void onRefresh() {
-    // create a handler to run after some milli seconds
-    // get data
+        // create a handler to run after some milli seconds
+        // get data
         swipeAndRefresh.setRefreshing(true);
         new Handler().postDelayed(new Runnable() {
             @Override
